@@ -1,19 +1,13 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import BreakingTicker from "@/components/BreakingTicker";
 
-export const metadata: Metadata = {
-  title: "SPEC News Connect",
-  description: "The Digital Pulse of St. Peter's Engineering College",
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <BreakingTicker />
+        {children}
+      </body>
     </html>
   );
 }
