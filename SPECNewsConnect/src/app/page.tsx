@@ -7,6 +7,20 @@ import {
   ChevronDown, Flame, Terminal, Cpu, Award, Globe, Radio, ShieldAlert 
 } from "lucide-react";
 
+// Define strict TypeScript structures for the multi-club nodes
+interface NavItem {
+  name: string;
+  short: string;
+  icon: React.ReactNode;
+  current?: boolean; // The '?' tells TypeScript this is safely optional
+}
+
+interface NavigationCategories {
+  departments: NavItem[];
+  academics: NavItem[];
+  campusClubs: NavItem[];
+}
+
 export default function SpecNewsConnectPremium() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -28,8 +42,8 @@ export default function SpecNewsConnectPremium() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
 
-  // Custom multi-club identity matrix nodes
-  const navigationCategories = {
+  // Strictly typed data arrays
+  const navigationCategories: NavigationCategories = {
     departments: [
       { name: "Computer Science (AI & ML)", short: "CSE-AIML", icon: <Cpu size={14} /> },
       { name: "Information Technology", short: "IT", icon: <Terminal size={14} /> },
@@ -50,7 +64,7 @@ export default function SpecNewsConnectPremium() {
   return (
     <div ref={containerRef} className="min-h-screen bg-[#050506] text-[#F5F5F7] antialiased selection:bg-rose-600 selection:text-white overflow-hidden relative font-sans">
       
-      {/* Immersive Cursor Aura Backing - Cleanly Interpolated */}
+      {/* Immersive Cursor Aura Backing */}
       <div 
         className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 opacity-60 hidden md:block"
         style={{
@@ -96,10 +110,10 @@ export default function SpecNewsConnectPremium() {
                       {navigationCategories[key as keyof typeof navigationCategories].map((sub, i) => (
                         <div 
                           key={i} 
-                          className={`flex items-center justify-between p-2 rounded-lg transition-all ${sub.current ? "bg-rose-950/40 border border-rose-800/30 text-rose-400" : "hover:bg-white/5 text-neutral-300 hover:text-white"}`}
+                          className={`flex items-center justify-between p-2 rounded-lg transition-all ${!!sub.current ? "bg-rose-950/40 border border-rose-800/30 text-rose-400" : "hover:bg-white/5 text-neutral-300 hover:text-white"}`}
                         >
                           <div className="flex items-center gap-2">
-                            <span className={sub.current ? "text-rose-500" : "text-neutral-500"}>{sub.icon}</span>
+                            <span className={!!sub.current ? "text-rose-500" : "text-neutral-500"}>{sub.icon}</span>
                             <span className="text-[10px] tracking-normal capitalize font-medium">{sub.name}</span>
                           </div>
                           <span className="text-[8px] font-mono opacity-60 bg-white/5 px-1 rounded">{sub.short}</span>
