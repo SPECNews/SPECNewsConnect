@@ -1,13 +1,14 @@
 import "./globals.css";
-import BreakingTicker from "@/components/BreakingTicker";
+import type { ReactNode } from "react";
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
-      <body>
-        <BreakingTicker />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
