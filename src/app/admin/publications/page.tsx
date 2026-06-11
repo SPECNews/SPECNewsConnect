@@ -47,7 +47,7 @@ export default function PublicationCMS() {
       alert(`Success! Saved as ${status}`);
     } catch (e) {
       console.error(e);
-    } file {
+    } finally {
       setIsSubmitting(false);
     }
   };
