@@ -7,12 +7,12 @@ import {
   ChevronDown, Flame, Terminal, Cpu, Award, Globe, Radio, ShieldAlert 
 } from "lucide-react";
 
-// Define strict TypeScript structures for the multi-club nodes
+// 1. FIXED: Explicitly tell TypeScript that current is a safely optional boolean
 interface NavItem {
   name: string;
   short: string;
   icon: React.ReactNode;
-  current?: boolean; // The '?' tells TypeScript this is safely optional
+  current?: boolean; 
 }
 
 interface NavigationCategories {
@@ -27,7 +27,6 @@ export default function SpecNewsConnectPremium() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLogoExploded, setIsLogoExploded] = useState(false);
 
-  // Smooth mouse coordinates capturing for lighting trace
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -42,7 +41,7 @@ export default function SpecNewsConnectPremium() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
 
-  // Strictly typed data arrays
+  // 2. FIXED: Strictly bind the data layout to our custom safe NavItem structure
   const navigationCategories: NavigationCategories = {
     departments: [
       { name: "Computer Science (AI & ML)", short: "CSE-AIML", icon: <Cpu size={14} /> },
@@ -78,7 +77,6 @@ export default function SpecNewsConnectPremium() {
       {/* Advanced Navigation Node Framework */}
       <nav className="fixed top-0 w-full z-40 bg-[#07070a]/80 backdrop-blur-2xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-8">
-          {/* Top Branding Anchor */}
           <div className="flex items-center space-x-2.5 group cursor-pointer">
             <img src="/logo.png" alt="SN" className="h-7 w-auto object-contain group-hover:rotate-12 transition-transform duration-300" />
             <span className="font-black text-[11px] uppercase tracking-wider text-white">
@@ -86,7 +84,6 @@ export default function SpecNewsConnectPremium() {
             </span>
           </div>
 
-          {/* Interactive Category Hotspots */}
           <div className="hidden lg:flex items-center space-x-6 text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
             {Object.keys(navigationCategories).map((key) => (
               <div 
@@ -110,6 +107,7 @@ export default function SpecNewsConnectPremium() {
                       {navigationCategories[key as keyof typeof navigationCategories].map((sub, i) => (
                         <div 
                           key={i} 
+                          // 3. FIXED: Using the !! double bang operator to cleanly evaluate undefined fields to false
                           className={`flex items-center justify-between p-2 rounded-lg transition-all ${!!sub.current ? "bg-rose-950/40 border border-rose-800/30 text-rose-400" : "hover:bg-white/5 text-neutral-300 hover:text-white"}`}
                         >
                           <div className="flex items-center gap-2">
@@ -135,13 +133,11 @@ export default function SpecNewsConnectPremium() {
       {/* Cinematic Gateway Hero Segment */}
       <motion.section style={{ scale: heroScale, opacity: heroOpacity }} className="relative h-screen w-full flex items-center justify-center overflow-hidden px-6">
         
-        {/* Deep Atmospheric Grids */}
         <motion.div style={{ y: bgShiftY }} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
           <div className="absolute w-[650px] h-[650px] bg-rose-600/10 rounded-full blur-[160px]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:50px_50px]" />
         </motion.div>
 
-        {/* Dynamic Watermark Background Rotation Core */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none">
           <motion.div 
             animate={{ 
@@ -158,10 +154,8 @@ export default function SpecNewsConnectPremium() {
           </motion.div>
         </div>
 
-        {/* Central Display Elements */}
         <div className="relative z-10 text-center max-w-5xl mx-auto space-y-6 flex flex-col items-center">
           
-          {/* Centered Micro-Reactor Interactive Logo Asset */}
           <motion.div 
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.95 }}
@@ -193,7 +187,6 @@ export default function SpecNewsConnectPremium() {
               SPEC NEWS
             </h1>
 
-            {/* Prestigious Editorial Creed Divider */}
             <p className="text-xs md:text-sm italic font-light tracking-wide text-neutral-400 max-w-2xl mx-auto border-l-2 border-rose-600 pl-4 my-6 text-left md:text-center">
               "True prestige is not about standing out from the crowd; it is about setting a standard so distinct that others define themselves by your absence."
             </p>
