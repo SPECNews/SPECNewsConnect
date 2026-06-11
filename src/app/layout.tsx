@@ -1,3 +1,4 @@
+// @ts-ignore: CSS module declarations missing in this environment
 import "./globals.css";
 import type { ReactNode } from "react";
 
