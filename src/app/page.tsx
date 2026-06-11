@@ -1,14 +1,19 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { Play, TrendingUp, ArrowUpRight, Sparkles, Layers, Zap, Bell, Calendar, Clock, Megaphone } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { 
+  TrendingUp, ArrowUpRight, Sparkles, Layers, Zap, Bell, Calendar, Clock, 
+  ChevronDown, Flame, Terminal, Cpu, Award, Globe, Radio, ShieldAlert 
+} from "lucide-react";
 
 export default function SpecNewsConnectPremium() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Mouse tracking coordinates for the responsive spotlight glow background
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isLogoExploded, setIsLogoExploded] = useState(false);
+
+  // Smooth mouse coordinates capturing for lighting trace
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
@@ -17,171 +22,228 @@ export default function SpecNewsConnectPremium() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Scroll animations for smooth parallax backdrop shifts
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  const bgShiftY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25 });
+  const bgShiftY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.92]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
 
-  // Animation layout configs for splitting words
-  const sentenceVariant = {
-    hidden: { opacity: 1 },
-    visible: { opacity: 1, transition: { delayChildren: 0.2, staggerChildren: 0.08 } }
-  };
-
-  const wordVariant = {
-    hidden: { y: 60, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.215, 0.610, 0.355, 1.0] } }
+  // Custom multi-club identity matrix nodes
+  const navigationCategories = {
+    departments: [
+      { name: "Computer Science (AI & ML)", short: "CSE-AIML", icon: <Cpu size={14} /> },
+      { name: "Information Technology", short: "IT", icon: <Terminal size={14} /> },
+      { name: "Electronics & Communication", short: "ECE", icon: <Radio size={14} /> }
+    ],
+    academics: [
+      { name: "AI Autonomous Curriculum", short: "R26 Framework", icon: <Sparkles size={14} /> },
+      { name: "R&D Incubation Center", short: "SPEC Labs", icon: <Layers size={14} /> },
+      { name: "Intellectual Property Cell", short: "IPR", icon: <Award size={14} /> }
+    ],
+    campusClubs: [
+      { name: "SPEC News Connect", short: "MEDIA HQ", icon: <Flame size={14} />, current: true },
+      { name: "Shutterbugs Photo Club", short: "RECON TEAM", icon: <Globe size={14} /> },
+      { name: "Cyber Security Forum", short: "SEC OPS", icon: <ShieldAlert size={14} /> }
+    ]
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-brand-bg text-[#F5F5F7] antialiased selection:bg-brand-crimson overflow-hidden relative">
+    <div ref={containerRef} className="min-h-screen bg-[#050506] text-[#F5F5F7] antialiased selection:bg-rose-600 selection:text-white overflow-hidden relative font-sans">
       
-      {/* Dynamic Interactive Spotlight Glow Background */}
+      {/* Immersive Cursor Aura Backing - Cleanly Interpolated */}
       <div 
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-500 opacity-60"
+        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 opacity-60 hidden md:block"
         style={{
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(225, 29, 72, 0.08), transparent 80%)`
+          backgroundImage: `radial-gradient(700px circle at ${mousePos.x}px ${mousePos.y}px, rgba(225, 29, 72, 0.12), transparent 80%)`
         }}
       />
 
-      {/* Top Reading Scroll Indicator */}
-      <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-crimson to-amber-500 origin-left z-50" style={{ scaleX }} />
+      {/* Reading Progress Metric Line */}
+      <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-rose-600 via-amber-500 to-rose-600 origin-left z-50" style={{ scaleX }} />
 
-      {/* Aligned Premium Navigation Bar */}
-      <nav className="fixed top-0 w-full z-40 bg-brand-bg/60 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex justify-between items-center transition-all">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="flex items-center space-x-3 group cursor-pointer"
-        >
-          <img src="/logo.png" alt="SPEC News" className="h-9 w-auto object-contain group-hover:rotate-6 transition-transform duration-300" />
-          <span className="font-bold tracking-wider text-xs uppercase text-white">
-            SPEC News <span className="text-neutral-500 font-light group-hover:text-brand-crimson transition-colors">Connect</span>
-          </span>
-        </motion.div>
+      {/* Advanced Navigation Node Framework */}
+      <nav className="fixed top-0 w-full z-40 bg-[#07070a]/80 backdrop-blur-2xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center space-x-8">
+          {/* Top Branding Anchor */}
+          <div className="flex items-center space-x-2.5 group cursor-pointer">
+            <img src="/logo.png" alt="SN" className="h-7 w-auto object-contain group-hover:rotate-12 transition-transform duration-300" />
+            <span className="font-black text-[11px] uppercase tracking-wider text-white">
+              SPEC NEWS <span className="text-rose-500 font-light">CONNECT</span>
+            </span>
+          </div>
 
-        <div className="hidden md:flex space-x-8 text-[11px] uppercase tracking-widest text-neutral-400 font-medium">
-          {["Featured", "Announcements", "Events"].map((tab) => (
-            <a key={tab} href={`#${tab.toLowerCase()}`} className="hover:text-white relative py-1 transition-colors group">
-              {tab}
-              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-crimson transition-all group-hover:w-full" />
-            </a>
-          ))}
+          {/* Interactive Category Hotspots */}
+          <div className="hidden lg:flex items-center space-x-6 text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
+            {Object.keys(navigationCategories).map((key) => (
+              <div 
+                key={key} 
+                className="relative cursor-pointer py-1 hover:text-white transition-colors flex items-center gap-1"
+                onMouseEnter={() => setActiveDropdown(key)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <span>{key.replace(/([A-Z])/g, ' $1')}</span>
+                <ChevronDown size={10} className={`transition-transform duration-200 ${activeDropdown === key ? "rotate-180 text-rose-500" : ""}`} />
+                
+                <AnimatePresence>
+                  {activeDropdown === key && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-0 mt-3 w-64 bg-[#0a0a0f] border border-white/10 p-3 rounded-xl shadow-2xl space-y-1 pointer-events-auto"
+                    >
+                      {navigationCategories[key as keyof typeof navigationCategories].map((sub, i) => (
+                        <div 
+                          key={i} 
+                          className={`flex items-center justify-between p-2 rounded-lg transition-all ${sub.current ? "bg-rose-950/40 border border-rose-800/30 text-rose-400" : "hover:bg-white/5 text-neutral-300 hover:text-white"}`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={sub.current ? "text-rose-500" : "text-neutral-500"}>{sub.icon}</span>
+                            <span className="text-[10px] tracking-normal capitalize font-medium">{sub.name}</span>
+                          </div>
+                          <span className="text-[8px] font-mono opacity-60 bg-white/5 px-1 rounded">{sub.short}</span>
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <motion.a 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          href="/admin/dashboard" 
-          className="bg-white text-black text-[10px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full hover:bg-brand-crimson hover:text-white transition-all duration-300 shadow-lg shadow-black/20"
-        >
+        <a href="/admin/dashboard" className="bg-white text-black text-[10px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full hover:bg-rose-600 hover:text-white transition-all duration-300 shadow-xl">
           HQ Console
-        </motion.a>
+        </a>
       </nav>
 
-      {/* Cinematic Hero Segment */}
-      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden px-6">
+      {/* Cinematic Gateway Hero Segment */}
+      <motion.section style={{ scale: heroScale, opacity: heroOpacity }} className="relative h-screen w-full flex items-center justify-center overflow-hidden px-6">
         
-        {/* Parallax Moving Ambient light Rings behind text */}
+        {/* Deep Atmospheric Grids */}
         <motion.div style={{ y: bgShiftY }} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-          <div className="absolute w-[350px] h-[350px] md:w-[600px] md:h-[600px] bg-brand-crimson/5 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute w-[200px] h-[200px] bg-amber-500/5 rounded-full blur-[90px] translate-x-32 -translate-y-20" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:50px_50px]" />
+          <div className="absolute w-[650px] h-[650px] bg-rose-600/10 rounded-full blur-[160px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:50px_50px]" />
         </motion.div>
 
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-brand-bg z-10" />
-
-        <div className="relative z-10 text-center max-w-5xl mx-auto space-y-6">
+        {/* Dynamic Watermark Background Rotation Core */}
+        <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center space-x-2 bg-brand-card border border-white/10 px-4 py-2 rounded-full text-[10px] uppercase tracking-widest text-brand-crimson font-semibold"
+            animate={{ 
+              rotate: 360,
+              scale: isLogoExploded ? 1.2 : 1
+            }}
+            transition={{ 
+              rotate: { repeat: Infinity, duration: 40, ease: "linear" },
+              scale: { duration: 0.4, ease: "easeOut" }
+            }}
+            className="relative opacity-[0.04] filter grayscale invert scale-[1.7] md:scale-[2.2]"
           >
-            <Sparkles size={12} className="animate-spin" />
-            <span>The Real-Time Digital Pulse</span>
+            <img src="/logo.png" alt="Background Matrix Graphic" className="w-[400px] h-auto object-contain" />
+          </motion.div>
+        </div>
+
+        {/* Central Display Elements */}
+        <div className="relative z-10 text-center max-w-5xl mx-auto space-y-6 flex flex-col items-center">
+          
+          {/* Centered Micro-Reactor Interactive Logo Asset */}
+          <motion.div 
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+            onHoverStart={() => setIsLogoExploded(true)}
+            onHoverEnd={() => setIsLogoExploded(false)}
+            className="cursor-pointer relative group p-1"
+          >
+            <div className="absolute inset-0 bg-rose-600 rounded-full blur-2xl opacity-20 group-hover:opacity-60 transition-opacity duration-500" />
+            <motion.div 
+              animate={{ rotate: -360 }}
+              transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+              className="relative p-3 bg-[#0a0a0f] border border-white/10 rounded-full shadow-2xl"
+            >
+              <img 
+                src="/logo.png" 
+                alt="Central Base Logo Core" 
+                className="w-20 h-20 md:w-28 md:h-28 object-contain transition-transform duration-500 group-hover:scale-105"
+              />
+            </motion.div>
           </motion.div>
 
-          {/* Splitting Word Dramatic Entrance Text Node */}
-          <h1 className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white flex flex-wrap justify-center gap-x-4 md:gap-x-6 overflow-hidden py-2">
-            {"SPEC News Connect".split(" ").map((word, idx) => (
-              <span key={idx} className="inline-block overflow-hidden">
-                <motion.span variants={wordVariant} className="inline-block">
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
+          <div className="space-y-4">
+            <motion.div className="inline-flex items-center space-x-2 bg-[#0e0e14] border border-white/10 px-4 py-1.5 rounded-full text-[9px] uppercase tracking-widest text-rose-500 font-black">
+              <Sparkles size={11} className="text-amber-500 animate-spin" />
+              <span>ST. PETER'S MEDIA HQ NETWORK</span>
+            </motion.div>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-            className="text-base md:text-xl font-light tracking-wide text-neutral-400 max-w-2xl mx-auto"
-          >
-            St. Peter's Engineering College modern high-fidelity publication network.
-          </motion.p>
+            <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-white uppercase select-none">
+              SPEC NEWS
+            </h1>
+
+            {/* Prestigious Editorial Creed Divider */}
+            <p className="text-xs md:text-sm italic font-light tracking-wide text-neutral-400 max-w-2xl mx-auto border-l-2 border-rose-600 pl-4 my-6 text-left md:text-center">
+              "True prestige is not about standing out from the crowd; it is about setting a standard so distinct that others define themselves by your absence."
+            </p>
+
+            <p className="text-[10px] font-mono tracking-widest text-neutral-500 max-w-xl mx-auto uppercase">
+              // Overthrowing standard publication logic via autonomous engineering code.
+            </p>
+          </div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Main Stream Interface Grid */}
+      {/* Primary Card Grid Frame Layout */}
       <main className="max-w-7xl mx-auto px-6 md:px-12 space-y-36 pb-36 relative z-20">
         
-        {/* Featured Content Segment */}
+        {/* Editorial Spotlight Block */}
         <section id="featured" className="scroll-mt-28">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <p className="text-[11px] uppercase tracking-widest text-brand-crimson mb-2 font-bold flex items-center gap-2">
-                <Layers size={14} /> Editorial Spotlight
+              <p className="text-[10px] uppercase tracking-widest text-rose-500 mb-2 font-bold flex items-center gap-2">
+                <Layers size={13} /> Editorial Spotlight
               </p>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white">Featured Stories</h2>
+              <h2 className="text-2xl md:text-4xl font-black tracking-tight text-white">Featured Stories</h2>
             </div>
-            <TrendingUp className="text-neutral-700 hidden md:block" size={36} />
+            <TrendingUp className="text-neutral-800 hidden md:block" size={32} />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Massive Hover Responsive Interactive Grid Card */}
             <motion.div 
-              whileHover={{ y: -6, scale: 1.01, borderColor: "rgba(225, 29, 72, 0.3)" }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="lg:col-span-2 relative bg-brand-card border border-white/5 rounded-2xl p-8 md:p-12 min-h-[420px] flex flex-col justify-between group cursor-pointer overflow-hidden shadow-2xl"
+              whileHover={{ y: -6, borderColor: "rgba(225, 29, 72, 0.35)" }}
+              className="lg:col-span-2 relative bg-[#0b0b10] border border-white/5 rounded-2xl p-8 md:p-10 min-h-[380px] flex flex-col justify-between group cursor-pointer overflow-hidden transition-colors"
             >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-brand-crimson/5 rounded-full blur-3xl group-hover:bg-brand-crimson/10 transition-colors duration-500" />
-              
+              <div className="absolute top-0 right-0 w-40 h-40 bg-rose-600/5 rounded-full blur-3xl group-hover:bg-rose-600/10 transition-colors duration-500" />
               <div className="flex justify-between items-center z-10">
-                <span className="bg-brand-crimson text-white text-[9px] uppercase tracking-widest font-black px-3 py-1 rounded-md">Cover Story</span>
-                <span className="text-neutral-500 group-hover:text-white transition-colors"><ArrowUpRight size={20} /></span>
+                <span className="bg-rose-600 text-white text-[9px] uppercase tracking-widest font-extrabold px-2.5 py-1 rounded">Cover Story</span>
+                <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-white transition-colors" />
               </div>
-              
-              <div className="space-y-4 z-10">
-                <h3 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white group-hover:text-neutral-200 transition-colors">
+              <div className="space-y-3 z-10">
+                <h3 className="text-xl md:text-3xl font-black tracking-tight text-white group-hover:text-neutral-200 transition-colors">
                   The Genesis of Next-Gen Robotics: SPEC Tech Team Breaks Records at National Conclave
                 </h3>
-                <p className="text-neutral-400 font-light text-sm md:text-base max-w-2xl">
-                  An in-depth exclusive detailing how our engineering majors developed a custom autonomous drone swarm ecosystem inside the campus R&D labs.
+                <p className="text-neutral-400 font-light text-xs md:text-sm max-w-xl">
+                  An exclusive look detailing how our engineering majors built a custom autonomous drone ecosystem inside campus development labs.
                 </p>
               </div>
             </motion.div>
 
-            {/* Side Stream Layout Module */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               {[
-                { cat: "Smart Campus", title: "Green Energy Integration Complete Across Blocks" },
-                { cat: "Academics", title: "Decoding the New AI-Driven Curriculum Framework" }
+                { cat: "Smart Campus", title: "Green Energy Grid Systems Deployment Across Blocks" },
+                { cat: "Academics", title: "Decoding the New AI-Driven Autonomous Curriculum Framework" }
               ].map((item, idx) => (
                 <motion.div 
                   key={idx}
-                  whileHover={{ x: 6, borderColor: "rgba(225, 29, 72, 0.2)" }}
-                  className="bg-brand-card border border-white/5 rounded-xl p-6 h-48 flex flex-col justify-between cursor-pointer group transition-all"
+                  whileHover={{ x: 6, borderColor: "rgba(225, 29, 72, 0.25)" }}
+                  className="bg-[#0b0b10] border border-white/5 rounded-xl p-5 h-[180px] flex flex-col justify-between cursor-pointer group transition-all"
                 >
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-brand-crimson flex items-center gap-1.5">
-                    <Zap size={12} /> {item.cat}
+                  <span className="text-[9px] uppercase tracking-widest font-bold text-rose-500 flex items-center gap-1">
+                    <Zap size={11} /> {item.cat}
                   </span>
-                  <h4 className="text-lg font-bold tracking-tight text-white group-hover:text-neutral-300 transition-colors">
+                  <h4 className="text-md font-bold tracking-tight text-white group-hover:text-neutral-300 transition-colors">
                     {item.title}
                   </h4>
-                  <span className="text-xs text-neutral-500 font-mono group-hover:text-neutral-300 transition-colors flex items-center gap-1">
-                    Read Update <ArrowUpRight size={12} />
+                  <span className="text-[10px] text-neutral-500 font-mono flex items-center gap-1 group-hover:text-white transition-colors">
+                    Read Update <ArrowUpRight size={11} />
                   </span>
                 </motion.div>
               ))}
@@ -189,16 +251,16 @@ export default function SpecNewsConnectPremium() {
           </div>
         </section>
 
-        {/* Announcements Notice Board Segment */}
+        {/* Live Operational Bulletins */}
         <section id="announcements" className="scroll-mt-28">
-          <div className="mb-12">
-            <p className="text-[11px] uppercase tracking-widest text-brand-crimson mb-2 font-bold flex items-center gap-2">
-              <Bell size={14} className="animate-bounce" /> Operational Bulletins
+          <div className="mb-10">
+            <p className="text-[10px] uppercase tracking-widest text-rose-500 mb-2 font-bold flex items-center gap-2">
+              <Bell size={13} className="animate-pulse" /> Operational Bulletins
             </p>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white">Live Announcements</h2>
+            <h2 className="text-2xl md:text-4xl font-black tracking-tight text-white">Live Announcements</h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[
               { tag: "Examination", date: "June 12, 2026", msg: "End-Semester Theory Lab Evaluations Timetable Released for Year II & IV.", urgent: true },
               { tag: "Placements", date: "June 10, 2026", msg: "Registration window open for Global Tech Campus Hiring Drive. Deadline tonight.", urgent: false },
@@ -206,54 +268,54 @@ export default function SpecNewsConnectPremium() {
             ].map((ann, idx) => (
               <motion.div
                 key={idx}
-                whileHover={{ scale: 1.005, backgroundColor: "rgba(255,255,255,0.02)", borderColor: ann.urgent ? "#e11d48" : "rgba(255,255,255,0.1)" }}
-                className={`p-6 bg-brand-card rounded-xl border ${ann.urgent ? "border-brand-crimson/40" : "border-white/5"} flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors cursor-pointer`}
+                whileHover={{ backgroundColor: "rgba(255,255,255,0.02)", borderColor: ann.urgent ? "#e11d48" : "rgba(255,255,255,0.1)" }}
+                className={`p-5 bg-[#0b0b10] rounded-xl border ${ann.urgent ? "border-rose-600/30" : "border-white/5"} flex flex-col md:flex-row md:items-center justify-between gap-3 cursor-pointer transition-colors`}
               >
-                <div className="flex items-start md:items-center space-x-4">
-                  <span className={`text-[9px] uppercase tracking-widest font-black px-2.5 py-1 rounded ${ann.urgent ? "bg-brand-crimson/20 text-brand-crimson" : "bg-white/5 text-neutral-400"}`}>
+                <div className="flex items-center space-x-3">
+                  <span className={`text-[8px] uppercase tracking-widest font-black px-2 py-0.5 rounded ${ann.urgent ? "bg-rose-600/20 text-rose-400" : "bg-white/5 text-neutral-400"}`}>
                     {ann.tag}
                   </span>
-                  <p className="text-sm text-neutral-200 font-medium">{ann.msg}</p>
+                  <p className="text-xs md:text-sm text-neutral-300 font-medium">{ann.msg}</p>
                 </div>
-                <span className="text-xs font-mono text-neutral-500 shrink-0">{ann.date}</span>
+                <span className="text-[10px] font-mono text-neutral-500">{ann.date}</span>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Events Countdown Deck Segment */}
+        {/* Campus Engagements Calendar Array */}
         <section id="events" className="scroll-mt-28">
-          <div className="mb-12">
-            <p className="text-[11px] uppercase tracking-widest text-brand-crimson mb-2 font-bold flex items-center gap-2">
-              <Calendar size={14} /> Academic Calendar
+          <div className="mb-10">
+            <p className="text-[10px] uppercase tracking-widest text-rose-500 mb-2 font-bold flex items-center gap-2">
+              <Calendar size={13} /> Campus Engagements
             </p>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white">Upcoming Events</h2>
+            <h2 className="text-2xl md:text-4xl font-black tracking-tight text-white">Upcoming Events</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { name: "SPEC HackFest 2026", type: "Technical Hackathon", delay: "2 Days Left", details: "36-Hour continuous build sprint across AI and Web3 tracks." },
-              { name: "National Cyber Security Forum", type: "Guest Lecture Series", delay: "Next Week", details: "Keynote talks by leading data defense architects from industry." },
-              { name: "Annual Cultural Fest", type: "Campus Celebration", delay: "June 25", details: "Inter-college staging competitions, music ensembles, and gallery arts." }
+              { name: "SPEC HackFest 2026", type: "Technical Hackathon", delay: "2 Days Left", info: "36-Hour continuous build sprint across AI and Web3 tracks." },
+              { name: "National Cyber Security Forum", type: "Guest Lecture Series", delay: "Next Week", info: "Keynote talks by leading data defense architects from industry." },
+              { name: "Annual Cultural Fest", type: "Campus Celebration", delay: "June 25", info: "Inter-college staging competitions, music ensembles, and gallery arts." }
             ].map((ev, idx) => (
               <motion.div
                 key={idx}
-                whileHover={{ y: -8, borderColor: "rgba(225, 29, 72, 0.4)" }}
-                className="bg-brand-card border border-white/5 rounded-2xl p-6 flex flex-col justify-between min-h-[220px] transition-all cursor-pointer relative overflow-hidden group"
+                whileHover={{ y: -6, borderColor: "rgba(225, 29, 72, 0.3)" }}
+                className="bg-[#0b0b10] border border-white/5 rounded-2xl p-6 flex flex-col justify-between min-h-[200px] cursor-pointer group transition-all"
               >
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-mono text-neutral-500 uppercase">{ev.type}</span>
-                    <span className="text-[10px] bg-white/5 text-brand-crimson font-bold font-mono px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <Clock size={10} /> {ev.delay}
+                    <span className="text-[9px] font-mono text-neutral-500 uppercase">{ev.type}</span>
+                    <span className="text-[9px] bg-rose-600/10 text-rose-400 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Clock size={9} /> {ev.delay}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold tracking-tight text-white pt-2 group-hover:text-brand-crimson transition-colors">{ev.name}</h3>
-                  <p className="text-xs text-neutral-400 font-light leading-relaxed">{ev.details}</p>
+                  <h3 className="text-lg font-bold text-white pt-1 group-hover:text-rose-500 transition-colors">{ev.name}</h3>
+                  <p className="text-xs text-neutral-400 font-light leading-relaxed">{ev.info}</p>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs text-neutral-500 font-mono group-hover:text-white transition-colors">
-                  <span>Secure Seat Pass</span>
-                  <ArrowUpRight size={14} />
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-neutral-500 group-hover:text-white transition-colors">
+                  <span>Acquire Gateway Pass</span>
+                  <ArrowUpRight size={12} />
                 </div>
               </motion.div>
             ))}
