@@ -7,7 +7,6 @@ import {
   ChevronDown, Flame, Terminal, Cpu, Award, Globe, Radio, ShieldAlert 
 } from "lucide-react";
 
-// 1. FIXED: Explicitly tell TypeScript that current is a safely optional boolean
 interface NavItem {
   name: string;
   short: string;
@@ -27,13 +26,36 @@ export default function SpecNewsConnectPremium() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isLogoExploded, setIsLogoExploded] = useState(false);
 
+  // Terminal Typewriter Engine State
+  const codeText = "// OVERTHROWING STANDARD PUBLICATION LOGIC VIA AUTONOMOUS ENGINEERING CODE.";
+  const [displayedCode, setDisplayedCode] = useState("");
+  const [startTypewriter, setStartTypewriter] = useState(false);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    
+    // Fire typewriter cycle after heading elements drop
+    const timer = setTimeout(() => setStartTypewriter(true), 1100);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(timer);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!startTypewriter) return;
+    if (displayedCode.length < codeText.length) {
+      const i = displayedCode.length;
+      const timeout = setTimeout(() => {
+        setDisplayedCode((prev) => prev + codeText[i]);
+      }, 25);
+      return () => clearTimeout(timeout);
+    }
+  }, [displayedCode, startTypewriter]);
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const bgShiftY = useTransform(scrollYProgress, [0, 1], [0, 200]);
@@ -41,7 +63,6 @@ export default function SpecNewsConnectPremium() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
 
-  // 2. FIXED: Strictly bind the data layout to our custom safe NavItem structure
   const navigationCategories: NavigationCategories = {
     departments: [
       { name: "Computer Science (AI & ML)", short: "CSE-AIML", icon: <Cpu size={14} /> },
@@ -63,11 +84,14 @@ export default function SpecNewsConnectPremium() {
   return (
     <div ref={containerRef} className="min-h-screen bg-[#050506] text-[#F5F5F7] antialiased selection:bg-rose-600 selection:text-white overflow-hidden relative font-sans">
       
-      {/* Immersive Cursor Aura Backing */}
+      {/* Immersive Responsive Mouse Aura Backing */}
       <div 
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300 opacity-60 hidden md:block"
+        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-500 opacity-70 hidden md:block"
         style={{
-          backgroundImage: `radial-gradient(700px circle at ${mousePos.x}px ${mousePos.y}px, rgba(225, 29, 72, 0.12), transparent 80%)`
+          backgroundImage: `
+            radial-gradient(650px circle at ${mousePos.x}px ${mousePos.y}px, rgba(225, 29, 72, 0.13), transparent 80%),
+            radial-gradient(250px circle at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.04), transparent 65%)
+          `
         }}
       />
 
@@ -78,7 +102,7 @@ export default function SpecNewsConnectPremium() {
       <nav className="fixed top-0 w-full z-40 bg-[#07070a]/80 backdrop-blur-2xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-8">
           <div className="flex items-center space-x-2.5 group cursor-pointer">
-            <img src="/logo.png" alt="SN" className="h-7 w-auto object-contain group-hover:rotate-12 transition-transform duration-300" />
+            <img src="/logo.png" alt="SN" className="h-7 w-auto rounded-full object-contain group-hover:rotate-12 transition-transform duration-300" />
             <span className="font-black text-[11px] uppercase tracking-wider text-white">
               SPEC NEWS <span className="text-rose-500 font-light">CONNECT</span>
             </span>
@@ -107,7 +131,6 @@ export default function SpecNewsConnectPremium() {
                       {navigationCategories[key as keyof typeof navigationCategories].map((sub, i) => (
                         <div 
                           key={i} 
-                          // 3. FIXED: Using the !! double bang operator to cleanly evaluate undefined fields to false
                           className={`flex items-center justify-between p-2 rounded-lg transition-all ${!!sub.current ? "bg-rose-950/40 border border-rose-800/30 text-rose-400" : "hover:bg-white/5 text-neutral-300 hover:text-white"}`}
                         >
                           <div className="flex items-center gap-2">
@@ -133,67 +156,107 @@ export default function SpecNewsConnectPremium() {
       {/* Cinematic Gateway Hero Segment */}
       <motion.section style={{ scale: heroScale, opacity: heroOpacity }} className="relative h-screen w-full flex items-center justify-center overflow-hidden px-6">
         
+        {/* Dynamic Vector Grid System Layer */}
         <motion.div style={{ y: bgShiftY }} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-          <div className="absolute w-[650px] h-[650px] bg-rose-600/10 rounded-full blur-[160px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff01_1px,transparent_1px)] bg-[size:50px_50px]" />
+          <div className="absolute w-[750px] h-[750px] bg-rose-600/5 rounded-full blur-[180px]" />
+          <div 
+            className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:40px_40px]" 
+            style={{
+              maskImage: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, black 15%, transparent 65%)`,
+              WebkitMaskImage: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, black 15%, transparent 65%)`
+            }}
+          />
         </motion.div>
 
+        {/* FIXED: Background Rotating Wireframe Layout (Mixed-blend mode strips out the dark square background artifact) */}
         <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none">
           <motion.div 
             animate={{ 
               rotate: 360,
-              scale: isLogoExploded ? 1.2 : 1
+              scale: isLogoExploded ? 1.25 : 1
             }}
             transition={{ 
-              rotate: { repeat: Infinity, duration: 40, ease: "linear" },
-              scale: { duration: 0.4, ease: "easeOut" }
+              rotate: { repeat: Infinity, duration: 55, ease: "linear" },
+              scale: { duration: 0.5, ease: "easeOut" }
             }}
-            className="relative opacity-[0.04] filter grayscale invert scale-[1.7] md:scale-[2.2]"
+            className="relative opacity-[0.03] filter grayscale invert scale-[1.7] md:scale-[2.2] mix-blend-screen"
           >
             <img src="/logo.png" alt="Background Matrix Graphic" className="w-[400px] h-auto object-contain" />
           </motion.div>
         </div>
 
-        <div className="relative z-10 text-center max-w-5xl mx-auto space-y-6 flex flex-col items-center">
+        {/* Hero Central Content Container Wrapper */}
+        <div className="relative z-10 max-w-5xl w-full mx-auto space-y-10 flex flex-col items-center">
           
+          {/* FIXED: Circularized Glowing Base Logo Hub */}
           <motion.div 
-            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileHover={{ scale: 1.08, rotate: -8 }}
             whileTap={{ scale: 0.95 }}
             onHoverStart={() => setIsLogoExploded(true)}
             onHoverEnd={() => setIsLogoExploded(false)}
-            className="cursor-pointer relative group p-1"
+            className="cursor-pointer relative p-1.5 group"
           >
-            <div className="absolute inset-0 bg-rose-600 rounded-full blur-2xl opacity-20 group-hover:opacity-60 transition-opacity duration-500" />
+            {/* Multi-layered halo ring glow */}
+            <div className="absolute inset-0 bg-rose-600 rounded-full blur-2xl opacity-20 group-hover:opacity-90 transition-opacity duration-500" />
+            <div className="absolute inset-[-4px] bg-gradient-to-r from-rose-500 via-amber-500 to-rose-600 rounded-full opacity-0 group-hover:opacity-40 animate-spin transition-opacity duration-500" style={{ animationDuration: '6s' }} />
+            
             <motion.div 
               animate={{ rotate: -360 }}
-              transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-              className="relative p-3 bg-[#0a0a0f] border border-white/10 rounded-full shadow-2xl"
+              transition={{ repeat: Infinity, duration: 35, ease: "linear" }}
+              className="relative p-3 bg-[#07070a] border border-rose-500/20 group-hover:border-rose-500 rounded-full shadow-[0_0_40px_rgba(225,29,72,0.2)] transition-all duration-300"
             >
               <img 
                 src="/logo.png" 
                 alt="Central Base Logo Core" 
-                className="w-20 h-20 md:w-28 md:h-28 object-contain transition-transform duration-500 group-hover:scale-105"
+                className="w-20 h-20 md:w-26 md:h-26 rounded-full object-cover p-1.5 bg-black/50"
               />
             </motion.div>
           </motion.div>
 
-          <div className="space-y-4">
-            <motion.div className="inline-flex items-center space-x-2 bg-[#0e0e14] border border-white/10 px-4 py-1.5 rounded-full text-[9px] uppercase tracking-widest text-rose-500 font-black">
-              <Sparkles size={11} className="text-amber-500 animate-spin" />
+          {/* Typography Display Hierarchy Block */}
+          <div className="w-full flex flex-col items-center space-y-5">
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center space-x-2 bg-[#0e0e14] border border-white/10 px-4 py-1.5 rounded-full text-[9px] uppercase tracking-widest text-rose-500 font-black shadow-inner"
+            >
+              <Sparkles size={11} className="text-amber-500 animate-spin" style={{ animationDuration: '3s' }} />
               <span>ST. PETER'S MEDIA HQ NETWORK</span>
             </motion.div>
 
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-white uppercase select-none">
+            {/* Massive Modern Header Display */}
+            <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-white uppercase select-none text-center bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-neutral-500/70 drop-shadow-2xl">
               SPEC NEWS
             </h1>
 
-            <p className="text-xs md:text-sm italic font-light tracking-wide text-neutral-400 max-w-2xl mx-auto border-l-2 border-rose-600 pl-4 my-6 text-left md:text-center">
-              "True prestige is not about standing out from the crowd; it is about setting a standard so distinct that others define themselves by your absence."
-            </p>
+            {/* Premium Asymmetric Left-Aligned Container Frame */}
+            <div className="w-full max-w-2xl text-left mt-4 space-y-5 px-4 md:px-0">
+              
+              <div className="flex gap-5 items-stretch">
+                {/* Vertical Accent Transforming Anchor Line */}
+                <motion.div 
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="w-[3px] bg-gradient-to-b from-rose-500 to-amber-500 origin-top shrink-0 shadow-[0_0_15px_rgba(225,29,72,0.5)]"
+                />
+                
+                <motion.p 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
+                  className="text-lg md:text-xl italic font-light tracking-wide text-neutral-100 leading-relaxed drop-shadow"
+                >
+                  "True prestige is not about standing out from the crowd; it is about setting a standard so distinct that others define themselves by your absence."
+                </motion.p>
+              </div>
 
-            <p className="text-[10px] font-mono tracking-widest text-neutral-500 max-w-xl mx-auto uppercase">
-              // Overthrowing standard publication logic via autonomous engineering code.
-            </p>
+              {/* Dynamic Living Code Typewriter Text Terminal Entry */}
+              <p className={`text-[11px] md:text-xs font-mono tracking-[0.16em] text-rose-500/80 uppercase pl-[23px] min-h-[1.5rem] leading-relaxed ${displayedCode.length < codeText.length ? "terminal-cursor" : ""}`}>
+                {displayedCode}
+              </p>
+              
+            </div>
           </div>
         </div>
       </motion.section>
