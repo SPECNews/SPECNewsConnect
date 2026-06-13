@@ -9,28 +9,26 @@
   }
 }
 
-.glow-line {
-  position: relative;
-}
-.glow-line::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #2563eb, transparent);
-}
-
-.cyber-panel {
-  background: rgba(8, 8, 12, 0.7);
+/* Custom smooth glassmorphism design */
+.premium-card {
+  background: linear-gradient(180deg, rgba(15, 15, 25, 0.7) 0%, rgba(5, 5, 8, 0.8) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7);
 }
 
-.cyber-panel:hover {
-  border-color: rgba(37, 99, 235, 0.4);
-  box-shadow: 0 0 30px rgba(37, 99, 235, 0.15);
+.premium-card:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+}
+
+/* Hide native custom cursor on desktop structures to use the fluid animated light blob */
+@media (min-width: 1024px) {
+  body {
+    cursor: none;
+  }
+  a, button, [role="button"] {
+    cursor: none;
+  }
 }
