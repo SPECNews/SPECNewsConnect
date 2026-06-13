@@ -12,58 +12,28 @@
   }
 }
 
-/* ─── NAVBAR CONNECT CRAZY ANIMATION ─── */
+/* Navbar active tab & animation states */
 @keyframes crazyConnect {
-  0% { 
-    transform: scale(1); 
-    border-color: rgba(245, 158, 11, 0.4); 
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); 
-  }
-  5% { 
-    transform: scale(1.06); 
-    border-color: rgba(255, 255, 255, 1); 
-    box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), 0 0 15px rgba(245, 158, 11, 0.6); 
-  }
-  10% { 
-    transform: scale(1); 
-    border-color: rgba(245, 158, 11, 0.5); 
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); 
-  }
-  45% { 
-    border-color: rgba(239, 68, 68, 0.9); 
-    box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); 
-  }
-  75% { 
-    border-color: rgba(245, 158, 11, 0.9); 
-    box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); 
-  }
-  100% { 
-    transform: scale(1); 
-    border-color: rgba(245, 158, 11, 0.4); 
-    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); 
-  }
+  0% { transform: scale(1); border-color: rgba(245, 158, 11, 0.4); box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+  5% { transform: scale(1.06); border-color: rgba(255, 255, 255, 1); box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), 0 0 15px rgba(245, 158, 11, 0.6); }
+  10% { transform: scale(1); border-color: rgba(245, 158, 11, 0.5); box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+  45% { border-color: rgba(239, 68, 68, 0.9); box-shadow: 0 0 25px rgba(239, 68, 68, 0.5); }
+  75% { border-color: rgba(245, 158, 11, 0.9); box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); }
+  100% { transform: scale(1); border-color: rgba(245, 158, 11, 0.4); box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
 }
+.animate-brand-connect { animation: crazyConnect 4s infinite ease-in-out; }
 
-.animate-brand-connect {
-  animation: crazyConnect 4s infinite ease-in-out;
-}
-
-/* ─── CENTRAL EMBLEM NEON VIBE AURA ─── */
 @keyframes neonOrbital {
-  0% {
-    transform: rotate(0deg) scale(1);
-    filter: blur(40px) brightness(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.05);
-    filter: blur(55px) brightness(1.2);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-    filter: blur(40px) brightness(1);
-  }
+  0% { transform: rotate(0deg) scale(1); filter: blur(40px) brightness(1); }
+  50% { transform: rotate(180deg) scale(1.05); filter: blur(55px) brightness(1.2); }
+  100% { transform: rotate(360deg) scale(1); filter: blur(40px) brightness(1); }
 }
+.animate-neon-aura { animation: neonOrbital 8s infinite linear; }
 
-.animate-neon-aura {
-  animation: neonOrbital 8s infinite linear;
+/* Custom dynamic glassmorphism cards style */
+.team-glass-card {
+  background: linear-gradient(135deg, rgba(10, 8, 9, 0.7) 0%, rgba(5, 3, 4, 0.9) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(43, 41, 42, 0.6);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
