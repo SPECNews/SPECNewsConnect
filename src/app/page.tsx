@@ -2,7 +2,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Trophy, BookOpen, Camera, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
-import AnimatedCounter from '@/components/AnimatedCounter';
 
 const revealVariant = {
   hidden: { opacity: 0, y: 25 },
@@ -12,61 +11,48 @@ const revealVariant = {
 export default function HomePage() {
   return (
     <div className="pb-32 space-y-36">
-      {/* High-Status Hero Frame */}
-      <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      {/* Absolute Centered Hero Frame */}
+      <section className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center justify-center min-h-[70vh] relative">
         <motion.div 
-          initial={{ opacity: 0, x: -20 }} 
-          animate={{ opacity: 1, x: 0 }} 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.6 }}
-          className="lg:col-span-7 space-y-6"
+          className="space-y-8 flex flex-col items-center"
         >
-          <div className="inline-flex items-center space-x-2 bg-red-950/50 border border-amber-500/20 px-3.5 py-1.5 rounded-xl">
+          {/* Centered Large Emblem Badge */}
+          <div className="relative group">
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500 via-red-700 to-amber-600 opacity-30 blur-md group-hover:opacity-50 transition duration-500" />
+            <div className="w-24 h-24 rounded-full bg-stone-950 border-2 border-amber-500/30 flex items-center justify-center p-4 relative shadow-2xl">
+              <img 
+                src="/logo.png" 
+                alt="SPEC News Logo" 
+                className="w-full h-full object-contain brightness-110" 
+              />
+            </div>
+          </div>
+
+          <div className="inline-flex items-center space-x-2 bg-red-950/40 border border-amber-500/20 px-4 py-1.5 rounded-full">
             <Trophy className="w-3.5 h-3.5 text-amber-500" />
-            <span className="text-[9px] font-black tracking-widest uppercase text-amber-400">Official Media & Communications Council</span>
+            <span className="text-[10px] font-black tracking-widest uppercase text-amber-400">Official Media & Communications Council</span>
           </div>
           
-          <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.05]">
+          <h1 className="text-4xl sm:text-7xl font-black text-white uppercase tracking-tight leading-[1.05] max-w-3xl">
             CAPTURING MOMENTS.<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-red-500 to-amber-200">
               CHRONICLING STORIES.
             </span>
           </h1>
           
-          <p className="text-stone-400 text-xs sm:text-sm normal-case leading-relaxed max-w-xl font-sans">
+          <p className="text-stone-400 text-sm normal-case leading-relaxed max-w-2xl font-sans">
             Welcome to the official media console of <strong className="text-white font-bold">SPEC NEWS Connect</strong> at St. Peter's Engineering College. We command verified high-fidelity event records, broadcast campus updates, and chronicle student journalism achievements.
           </p>
           
-          <div className="pt-2">
-            <Link href="/articles" className="inline-flex items-center space-x-2.5 px-6 py-3.5 btn-primary text-white font-black text-xs uppercase tracking-widest rounded-xl transition">
+          <div className="pt-4">
+            <Link href="/articles" className="inline-flex items-center space-x-3 px-8 py-4 btn-primary text-white font-black text-xs uppercase tracking-widest rounded-xl transition">
               <span>EXPLORE ARTICLES</span>
               <ArrowRight className="w-4 h-4 text-amber-400" />
             </Link>
-          </div>
-        </motion.div>
-
-        {/* Official Data Impact Dashboard */}
-        <motion.div 
-          initial={{ opacity: 0, y: 25 }} 
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="lg:col-span-5 premium-card p-6 rounded-2xl bg-stone-950/40"
-        >
-          <div className="flex items-center space-x-2.5 pb-4 border-b border-stone-900/80 mb-4">
-            <img src="/logo.png" alt="" className="w-4 h-4 object-contain brightness-110" />
-            <span className="text-[9px] font-black tracking-widest uppercase text-stone-400">Club Impact Dashboard</span>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { val: 50, suf: "+", label: "PUBLICATIONS FILED" },
-              { val: 20, suf: "+", label: "EVENTS COVERED" },
-              { val: 1000, suf: "+", label: "STAKEHOLDERS REACHED" },
-              { val: 15, suf: "+", label: "CREDENTIALED REPORTERS" }
-            ].map((stat, idx) => (
-              <div key={idx} className="bg-stone-950/50 border border-stone-900/60 p-4 rounded-xl shadow-inner">
-                <AnimatedCounter value={stat.val} suffix={stat.suf} />
-                <span className="text-[8px] font-bold tracking-widest text-stone-500 mt-1.5 block uppercase">{stat.label}</span>
-              </div>
-            ))}
           </div>
         </motion.div>
       </section>
@@ -76,7 +62,7 @@ export default function HomePage() {
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6"
       >
-        <div>
+        <div className="text-center md:text-left">
           <span className="text-[9px] font-black text-amber-500 tracking-[0.25em] uppercase">CAMPUS CHRONICLES</span>
           <h2 className="text-2xl font-black text-white uppercase tracking-tight mt-0.5">Featured Bulletins</h2>
         </div>
@@ -112,7 +98,7 @@ export default function HomePage() {
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6"
       >
-        <div>
+        <div className="text-center md:text-left">
           <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase">OFFICERS COUNCIL</span>
           <h2 className="text-2xl font-black text-white uppercase tracking-tight mt-0.5">Leadership at the Helm</h2>
         </div>
