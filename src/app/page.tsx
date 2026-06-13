@@ -81,50 +81,42 @@ export default function HomePage() {
         </motion.div>
       </div>
 
-      {/* 2. SYMMETRICALLY ALIGNED HIGH-GLOW NAVIGATION DOCK */}
-<nav className="fixed top-6 left-0 right-0 z-50 max-w-5xl mx-auto px-4">
-  <div className="relative rounded-full p-[1px] bg-gradient-to-r from-stone-800/80 via-amber-500/40 to-stone-800/80 backdrop-blur-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.85)]">
-    <div className="absolute inset-0 rounded-full bg-black/90 -z-10" />
+      {/* 2. SCALE-OPTIMIZED TYPOGRAPHIC NAVIGATION DOCK */}
+<nav className="fixed top-8 left-0 right-0 z-50 max-w-6xl mx-auto px-6">
+  {/* Expanded high-visibility container with increased padding and solid backdrop tracking */}
+  <div className="relative rounded-2xl p-[1px] bg-gradient-to-r from-stone-800/90 via-amber-500/30 to-stone-800/90 backdrop-blur-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)]">
+    <div className="absolute inset-0 rounded-2xl bg-[#050304]/95 -z-10" />
     
-    {/* Using grid-cols-3 anchors the logo to the left and locks the links directly in the true horizontal center */}
-    <div className="px-6 py-3 grid grid-cols-3 items-center">
+    {/* Height scale increased to py-5 for an open, intentional, non-cramped premium layout */}
+    <div className="px-8 py-5 flex items-center justify-between">
       
-      {/* Left Slot: Branding Alignment */}
-      <Link href="/" className="flex items-center space-x-3 group/logo justify-self-start">
-        <div className="relative w-9 h-9 rounded-full bg-stone-950 border border-amber-500/40 overflow-hidden p-0 shadow-[0_0_15px_rgba(245,158,11,0.25)] transition-transform duration-300 group-hover/logo:scale-105">
-          <img 
-            src="/logo.png" 
-            alt="SPEC Navbar Logo" 
-            className="w-full h-full object-cover scale-110 filter brightness-110" 
-          />
-        </div>
-        <div className="flex flex-col leading-tight">
-          <span className="text-sm font-black tracking-wider text-white uppercase group-hover/logo:text-amber-400 transition-colors duration-300">
-            SPEC NEWS
-          </span>
-          <span className="text-[10px] font-black text-amber-500 tracking-[0.22em] uppercase">
-            CONNECT
-          </span>
-        </div>
+      {/* Primary Typographic Anchor: Bold, High-Contrast Branding */}
+      <Link href="/" className="flex flex-col select-none group">
+        <span className="text-lg font-black tracking-widest text-white transition-colors duration-300 group-hover:text-amber-400">
+          SPEC NEWS
+        </span>
+        <span className="text-[11px] font-extrabold text-amber-500 tracking-[0.32em] mt-0.5">
+          CONNECT
+        </span>
       </Link>
 
-      {/* Middle Slot: Absolute Centered Menu Tracks */}
-      <div className="flex items-center space-x-1 justify-self-center">
+      {/* Expanded Interactive Navigation Tracks */}
+      <div className="flex items-center space-x-2">
         {['Home', 'Articles', 'Gallery', 'Team', 'Contact'].map((item) => {
           const isActive = activeTab === item;
           return (
             <button
               key={item}
               onClick={() => setActiveTab(item)}
-              className={`relative px-4 py-2 text-[11px] font-black uppercase tracking-widest transition-all duration-300 rounded-full ${
-                isActive ? 'text-amber-400 font-extrabold' : 'text-stone-400 hover:text-white'
+              className={`relative px-5 py-2.5 text-xs font-black uppercase tracking-widest transition-all duration-300 rounded-xl ${
+                isActive ? 'text-amber-400' : 'text-stone-400 hover:text-white'
               }`}
             >
               {isActive && (
                 <motion.span
                   layoutId="navActiveGlow"
-                  className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-950/80 to-amber-950/60 border border-amber-500/40 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.2)] -z-10"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-950/90 to-amber-950/70 border border-amber-500/40 rounded-xl shadow-[0_0_25px_rgba(245,158,11,0.15)] -z-10"
+                  transition={{ type: "spring", stiffness: 380, damping: 28 }}
                 />
               )}
               <span className="relative z-10">{item}</span>
@@ -133,10 +125,6 @@ export default function HomePage() {
         })}
       </div>
 
-      {/* Right Slot: Structural Balance Spacer */}
-      <div className="hidden lg:block justify-self-end text-[10px] font-black tracking-widest text-stone-500/50 uppercase select-none">
-        PRESS CONSOLE
-      </div>
     </div>
   </div>
 </nav>
