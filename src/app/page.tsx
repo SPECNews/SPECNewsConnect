@@ -52,6 +52,7 @@ export default function HomePage() {
       
       {/* 1. LIGHT UNDER CURSOR & BACKGROUND PARALLAX EMBLEM */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        {/* Dynamic Under-Cursor Spotlight */}
         <motion.div 
           className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block"
           style={{
@@ -62,9 +63,11 @@ export default function HomePage() {
           }}
         />
 
+        {/* Ambient Crimson Background Gradients */}
         <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/15 blur-[140px]" />
         <div className="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-amber-950/5 blur-[160px]" />
         
+        {/* Dynamic Watermark Logo Backdrop */}
         <motion.div 
           style={{ x: smoothX, y: smoothY }}
           className="fixed inset-0 flex items-center justify-center z-0"
@@ -78,7 +81,7 @@ export default function HomePage() {
       </div>
 
       {/* 2. HERO SECTION */}
-      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[90vh] relative z-10 pt-48 pb-12 gap-12">
+      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-48 pb-12 gap-12">
         <motion.div 
           initial="hidden" animate="visible" variants={revealVariant}
           className="space-y-8 max-w-2xl"
@@ -132,7 +135,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* 3. NEW LOCATION FOR OPERATIONAL COUNCIL BOARD */}
+      {/* 3. CLUB BOARD (PLACED RIGHT UNDER HERO OVER IMPACT DASHBOARD) */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-12"
@@ -148,7 +151,7 @@ export default function HomePage() {
             { role: "CLUB SECRETARY", name: "B. Rishikesh", desc: "Overseeing day-to-day operations, communications timelines, and student journalism coverage logistics." },
             { role: "CLUB ADMINISTRATOR", name: "B. Sri Vardhan", desc: "Managing technical web builds, portal assets, design layouts, and server architecture handles." }
           ].map((lead, idx) => (
-            <div key={idx} className="bg-stone-950/30 backdrop-blur-sm border border-stone-900 p-6 rounded-2xl flex flex-col justify-between h-56 hover:border-stone-800 transition shadow-xl">
+            <div key={idx} className="bg-stone-950/30 backdrop-blur-sm border border-stone-900 p-6 rounded-2xl flex flex-col justify-between h-56 hover:border-stone-800 transition">
               <div className="space-y-3">
                 <div>
                   <span className="text-[9px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
@@ -201,7 +204,6 @@ export default function HomePage() {
           ))}
         </div>
       </motion.section>
-
     </div>
   );
 }
