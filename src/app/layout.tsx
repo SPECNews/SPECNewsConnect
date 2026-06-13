@@ -1,17 +1,27 @@
-﻿import './globals.css';
-import Footer from '@/components/Footer';
+﻿import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+// 👇 MAKE SURE THIS IMPORT IS HERE
+import Navbar from "@/components/Navbar"; 
 
-export const metadata = {
-  title: "SPEC News Connect | St. Peter's Engineering College",
-  description: "The Official Media & Communications Hub of St. Peter's Engineering College.",
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "SPEC NEWS Connect",
+  description: "The Voice of St. Peter's",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen bg-[#020001] text-white flex flex-col relative antialiased">
-        <main className="flex-grow relative z-10">{children}</main>
-        <Footer />
+    <html lang="en">
+      <body className={inter.className}>
+        {/* 👇 THE NAVBAR COMPONENT MUST SIT HERE ABOVE THE CHILDREN */}
+        <Navbar /> 
+        {children}
       </body>
     </html>
   );
