@@ -14,36 +14,42 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50 max-w-5xl mx-auto px-4">
-      <div className="premium-card rounded-full px-6 py-3 flex items-center justify-between bg-black/60 backdrop-blur-xl">
+    <nav className="fixed top-5 left-0 right-0 z-50 max-w-5xl mx-auto px-4">
+      <div className="premium-card rounded-2xl px-6 py-3.5 flex items-center justify-between bg-black/75 shadow-2xl">
+        
+        {/* Verified Logo & Institutional Branding */}
         <Link href="/" className="flex items-center space-x-3 group">
-          {/* Pulsing wrapper holding your custom logo asset */}
-          <motion.div 
-            animate={{ scale: [1, 1.04, 1] }}
-            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-            className="relative w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center p-1 group-hover:border-blue-500/40 transition-colors"
-          >
-            <img src="/logo.png" alt="SPEC News Logo" className="w-full h-full object-contain" />
-          </motion.div>
+          <div className="w-10 h-10 rounded-xl bg-stone-950 border border-amber-500/20 flex items-center justify-center p-1.5 transition-all group-hover:border-amber-500/50 shadow-inner">
+            <img 
+              src="/logo.png" 
+              alt="SPEC News Logo" 
+              className="w-full h-full object-contain brightness-110" 
+            />
+          </div>
           <div className="flex flex-col">
-            <span className="text-xs font-black tracking-[0.2em] text-white uppercase">SPEC NEWS</span>
-            <span className="text-[9px] font-bold text-blue-500 tracking-widest uppercase">CONNECT</span>
+            <span className="text-xs font-black tracking-wider text-white uppercase">SPEC NEWS</span>
+            <span className="text-[9px] font-bold text-amber-500 tracking-[0.2em] uppercase">CONNECT</span>
           </div>
         </Link>
 
+        {/* Navigation Options */}
         <div className="flex items-center space-x-1">
           {links.map((link) => {
-            const active = pathname === link.path;
+            const isActive = pathname === link.path;
             return (
-              <Link key={link.path} href={link.path} className="relative px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors">
-                {active && (
+              <Link 
+                key={link.path} 
+                href={link.path} 
+                className="relative px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-stone-400 hover:text-white transition-colors"
+              >
+                {isActive && (
                   <motion.span 
-                    layoutId="nav-pill-glow" 
-                    className="absolute inset-0 bg-blue-600/20 border border-blue-500/30 rounded-full -z-10" 
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }} 
+                    layoutId="navbar-glow-pill" 
+                    className="absolute inset-0 bg-gradient-to-r from-red-950/40 to-amber-950/30 border border-amber-500/20 rounded-xl -z-10" 
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }} 
                   />
                 )}
-                <span className={active ? 'text-blue-400' : ''}>{link.name}</span>
+                <span className={isActive ? 'text-amber-400 font-extrabold' : ''}>{link.name}</span>
               </Link>
             );
           })}
