@@ -18,7 +18,7 @@ const containerVariant = {
   }
 };
 
-// ─── CRAZY HIGH-VELOCITY ELASTIC SPRING ENTRANCE ───
+// ─── HIGH-VELOCITY ELASTIC SPRING ENTRANCE ───
 const teamCardVariant = {
   hidden: { opacity: 0, y: 160, scale: 0.8 },
   visible: { 
@@ -113,10 +113,11 @@ export default function HomePage() {
             </span>
           </h1>
           
+          {/* UPDATED COMPACT HIGH-IMPACT COPY */}
           <p className="text-stone-400 text-sm sm:text-base normal-case leading-relaxed font-medium max-w-xl">
-            Welcome to the official media console of SPEC NEWS Connect at St. Peter's Engineering College. We command verified high-fidelity event records, broadcast campus updates, and chronicle student journalism achievements.
+            Welcome to SPEC NEWS Connect—the ultimate digital heartbeat of St. Peter's Engineering College. We don't just log events; we broadcast student energy, chronicle breakthrough journalism, and deliver high-fidelity campus culture straight to your screen.
           </p>
-          
+
           <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
             <Link href="/articles" className="inline-flex items-center space-x-3 px-8 py-3.5 bg-gradient-to-r from-red-700 to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition shadow-[0_15px_30px_-5px_rgba(185,28,28,0.4)] group">
               <span>EXPLORE ARTICLES</span>
