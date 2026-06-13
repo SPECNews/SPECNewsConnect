@@ -52,7 +52,6 @@ export default function HomePage() {
       
       {/* 1. LIGHT UNDER CURSOR & BACKGROUND PARALLAX EMBLEM */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        {/* Dynamic Under-Cursor Spotlight */}
         <motion.div 
           className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block"
           style={{
@@ -63,11 +62,9 @@ export default function HomePage() {
           }}
         />
 
-        {/* Ambient Crimson Background Gradients */}
         <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/15 blur-[140px]" />
         <div className="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-amber-950/5 blur-[160px]" />
         
-        {/* Dynamic Watermark Logo Backdrop */}
         <motion.div 
           style={{ x: smoothX, y: smoothY }}
           className="fixed inset-0 flex items-center justify-center z-0"
@@ -80,8 +77,8 @@ export default function HomePage() {
         </motion.div>
       </div>
 
-      {/* 2. HERO SECTION — ADJUSTED PADDING FOR FULL-WIDTH NAVIGATION BAR */}
-      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-48 pb-12 gap-12">
+      {/* 2. HERO SECTION */}
+      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[90vh] relative z-10 pt-48 pb-12 gap-12">
         <motion.div 
           initial="hidden" animate="visible" variants={revealVariant}
           className="space-y-8 max-w-2xl"
@@ -135,35 +132,37 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* 3. CLUB IMPACT DASHBOARD METRICS BOX */}
+      {/* 3. NEW LOCATION FOR OPERATIONAL COUNCIL BOARD */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
-        className="max-w-6xl mx-auto px-6 relative z-10 mt-12"
+        className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-12"
       >
-        <div className="bg-stone-950/40 backdrop-blur-md border border-stone-900 rounded-3xl p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div className="space-y-2">
-            <div className="inline-block bg-red-950/40 border border-red-900/60 px-3 py-1 rounded-md text-[9px] font-black tracking-widest text-red-400 uppercase">
-              CLUB IMPACT DASHBOARD
-            </div>
-            <h2 className="text-xl font-extrabold text-white uppercase tracking-tight">Cinematic Media Hub</h2>
-            <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans">
-              A fluid portal tracking news updates, campus highlights, photography portfolios, and departmental announcements across the campus network.
-            </p>
-          </div>
-
-          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {[
-              { metric: "50+", tag: "PUBLICATIONS FILED" },
-              { metric: "20+", tag: "EVENTS COVERED" },
-              { metric: "1000+", tag: "STAKEHOLDERS REACHED" },
-              { metric: "15+", tag: "CREDENTIALED REPORTERS" }
-            ].map((stat, i) => (
-              <div key={i} className="bg-stone-950 border border-stone-900 p-5 rounded-2xl text-center space-y-1 hover:border-stone-800 transition">
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-white block">{stat.metric}</span>
-                <span className="text-[8px] font-bold tracking-wider text-stone-500 uppercase block">{stat.tag}</span>
+        <div className="space-y-1">
+          <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">OPERATIONAL BOARD</span>
+          <h2 className="text-2xl font-black text-white uppercase tracking-tight">Leadership at the Helm</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { role: "CLUB PRESIDENT", name: "G. Vishwanadh", desc: "Directing media strategy, student engagement campaigns, and lead execution for council initiatives." },
+            { role: "CLUB SECRETARY", name: "B. Rishikesh", desc: "Overseeing day-to-day operations, communications timelines, and student journalism coverage logistics." },
+            { role: "CLUB ADMINISTRATOR", name: "B. Sri Vardhan", desc: "Managing technical web builds, portal assets, design layouts, and server architecture handles." }
+          ].map((lead, idx) => (
+            <div key={idx} className="bg-stone-950/30 backdrop-blur-sm border border-stone-900 p-6 rounded-2xl flex flex-col justify-between h-56 hover:border-stone-800 transition shadow-xl">
+              <div className="space-y-3">
+                <div>
+                  <span className="text-[9px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight mt-0.5">{lead.name}</h3>
+                </div>
+                <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans font-medium">{lead.desc}</p>
               </div>
-            ))}
-          </div>
+              
+              <div className="pt-4 border-t border-stone-900/60 flex items-center space-x-2 text-stone-600">
+                <ShieldAlert className="w-3.5 h-3.5" />
+                <span className="text-[9px] font-black tracking-widest uppercase">Verified Council Member</span>
+              </div>
+            </div>
+          ))}
         </div>
       </motion.section>
 
@@ -203,39 +202,6 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* 5. OPERATIONAL COUNCIL TEAM */}
-      <motion.section 
-        initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
-        className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36"
-      >
-        <div className="space-y-1">
-          <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">OPERATIONAL BOARD</span>
-          <h2 className="text-2xl font-black text-white uppercase tracking-tight">Leadership at the Helm</h2>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { role: "CLUB PRESIDENT", name: "G. Vishwanadh", desc: "Directing media strategy, student engagement campaigns, and lead execution for council initiatives." },
-            { role: "CLUB SECRETARY", name: "B. Rishikesh", desc: "Overseeing day-to-day operations, communications timelines, and student journalism coverage logistics." },
-            { role: "CLUB ADMINISTRATOR", name: "B. Sri Vardhan", desc: "Managing technical web builds, portal assets, design layouts, and server architecture handles." }
-          ].map((lead, idx) => (
-            <div key={idx} className="bg-stone-950/30 backdrop-blur-sm border border-stone-900 p-6 rounded-2xl flex flex-col justify-between h-56 hover:border-stone-800 transition">
-              <div className="space-y-3">
-                <div>
-                  <span className="text-[9px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
-                  <h3 className="text-xl font-black text-white uppercase tracking-tight mt-0.5">{lead.name}</h3>
-                </div>
-                <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans font-medium">{lead.desc}</p>
-              </div>
-              
-              <div className="pt-4 border-t border-stone-900/60 flex items-center space-x-2 text-stone-600">
-                <ShieldAlert className="w-3.5 h-3.5" />
-                <span className="text-[9px] font-black tracking-widest uppercase">Verified Council Member</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
     </div>
   );
 }
