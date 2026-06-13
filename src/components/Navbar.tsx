@@ -1,22 +1,50 @@
-import Link from 'next/link';
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+
+const navItems = [
+  { name: "Home", path: "/" },
+  { name: "Articles", path: "/articles" },
+  { name: "Gallery", path: "/gallery" },
+  { name: "Team", path: "/team" },
+  { name: "Contact", path: "/contact" },
+];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
-    <nav className="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0 font-bold text-xl tracking-wider text-blue-400">
-            SPEC NEWS
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-[#020205]/80">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+            <img src="/logo.png" alt="SPEC News Connect" className="h-8 w-8 object-contain" />
           </div>
-          <div className="hidden md:flex space-x-8">
-            <Link href="/" className="hover:text-blue-400 transition">Home</Link>
-            <Link href="/articles" className="hover:text-blue-400 transition">Articles</Link>
-            <Link href="/gallery" className="hover:text-blue-400 transition">Gallery</Link>
-            <Link href="/team" className="hover:text-blue-400 transition">Team</Link>
-            <Link href="/contact" className="hover:text-blue-400 transition">Contact</Link>
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] text-slate-400">SPEC News</p>
+            <h1 className="text-base font-black tracking-tight text-white">Connect</h1>
           </div>
-        </div>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-4 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-2xl shadow-[0_25px_90px_-60px_rgba(0,0,0,0.8)]">
+          {navItems.map((item) => {
+            const isActive = pathname === item.path;
+            return (
+              <Link
+                key={item.name}
+                href={item.path}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  isActive ? "bg-blue-500 text-white shadow-[0_10px_30px_-20px_rgba(59,130,246,0.75)]" : "text-slate-300 hover:text-white"
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }
