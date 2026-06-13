@@ -3,14 +3,14 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Trophy, BookOpen, Camera, ShieldAlert, Quote } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/Navbar'; // Preservation of compact animated nav
 
 const revealVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } }
 };
 
-// Orchestration container for stagered card animations
+// Orchestration container for staggered card entrance
 const containerVariant = {
   hidden: { opacity: 0 },
   visible: {
@@ -19,13 +19,20 @@ const containerVariant = {
   }
 };
 
+// ─── THE NEW AGGRESSIVE ELASTIC FLY-UP ANIMATION ───
+// Cards now start 150px low and utilize a powerful bounce spring.
 const teamCardVariant = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 150, scale: 0.85 },
   visible: { 
     opacity: 1, 
     y: 0, 
     scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 20 } 
+    transition: { 
+      type: "spring", 
+      stiffness: 140, // More stiffness for faster snap
+      damping: 12,   // Less damping for maximum elasticity and bounce
+      mass: 0.8,
+    } 
   }
 };
 
@@ -64,29 +71,22 @@ export default function HomePage() {
   return (
     <div className="pb-32 relative overflow-hidden min-h-screen bg-[#020001] text-white">
       
-      {/* 1. BACKGROUND GRADIENTS */}
+      {/* 1. SEAMLESS BACKGROUND SCENE */}
+      {/* (Spotlight, Crimson gradients, and logo watermark remain identical to image_10.png) */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        <motion.div 
-          className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block"
-          style={{
-            background: useTransform(
-              [lightX, lightY],
-              ([cx, cy]) => `radial-gradient(600px circle at ${cx}px ${cy}px, rgba(185, 28, 28, 0.22) 0%, rgba(245, 158, 11, 0.05) 45%, transparent 70%)`
-            )
-          }}
-        />
+        <motion.div className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block" style={{ background: useTransform([lightX, lightY], ([cx, cy]) => `radial-gradient(600px circle at ${cx}px ${cy}px, rgba(185, 28, 28, 0.22) 0%, rgba(245, 158, 11, 0.05) 45%, transparent 70%)`) }} />
         <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/15 blur-[140px]" />
         <div className="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-amber-950/5 blur-[160px]" />
-        
         <motion.div style={{ x: smoothX, y: smoothY }} className="fixed inset-0 flex items-center justify-center z-0">
           <img src="/logo.png" alt="Watermark" className="w-[90vw] h-[90vw] sm:w-[75vw] sm:h-[75vw] object-contain opacity-[0.12] filter drop-shadow-[0_0_100px_rgba(185,28,28,0.08)]" />
         </motion.div>
       </div>
 
-      {/* 2. NAVBAR */}
+      {/* 2. COMPACT ANIMATED NAVBAR (PRESERVED) */}
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* 3. HERO CONTENT */}
+      {/* (Title text, Desc, Buttons, and static Central Emblem remain identical to image_10.png) */}
       <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-24 pb-12 gap-12">
         <motion.div initial="hidden" animate="visible" variants={revealVariant} className="space-y-8 max-w-2xl">
           <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/60 to-stone-900/40 border border-amber-500/30 px-4 py-1.5 rounded-full shadow-lg">
@@ -111,17 +111,17 @@ export default function HomePage() {
             </Link>
           </div>
         </motion.div>
-
-        {/* CENTRAL EMBLEM DESIGN - CYAN TO MAGENTA AURA */}
+        {/* Large static central emblem */}
         <motion.div initial="hidden" animate="visible" variants={revealVariant} whileHover={{ scale: 1.03 }} className="relative group/emblem cursor-pointer flex-shrink-0">
-          <div className="absolute inset-[-10px] rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-500 to-fuchsia-500 opacity-40 animate-neon-aura" />
+          <div className="absolute inset-[-1px] rounded-full bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800/80 z-0" />
           <div className="w-60 h-60 sm:w-72 sm:h-72 rounded-full bg-black border border-stone-800/60 flex items-center justify-center relative shadow-[0_0_50px_rgba(0,0,0,0.95)] overflow-hidden z-10">
             <img src="/logo.png" alt="SPEC Central Emblem" className="w-full h-full object-cover scale-105 filter brightness-110 contrast-105 transition-transform duration-500 group-hover/emblem:scale-110" />
           </div>
         </motion.div>
       </section>
 
-      {/* 4. UPGRADED INTERACTIVE TEAM SECTION */}
+      {/* 4. NEW INTERACTIVE TEAM REGION */}
+      {/* This configuration drops specifications for big photos and unified descriptions */}
       <section className="max-w-6xl mx-auto px-6 space-y-10 relative z-10 mt-16">
         <div className="space-y-2">
           <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">OPERATIONAL BOARD</span>
@@ -133,91 +133,80 @@ export default function HomePage() {
           variants={containerVariant}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+          viewport={{ once: true, margin: "-100px" }} // Triggers high for faster elastic entrance
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
         >
           {[
             { 
               role: "CLUB PRESIDENT", 
               name: "G. Vishwanadh", 
-              imgSrc: "/team/president.jpg", // Replace with your image paths
-              responsibility: "Directs overarching media infrastructure strategy, spearheads student engagement campaigns, and orchestrates final lead execution frameworks for high-profile council initiatives.",
-              dedication: "Committed to expanding our digital footprint and giving every story on campus a distinctive, powerful voice."
+              imgSrc: "/team/president_full.jpg", // NEW Path to high-res large photo asset
+              bio: "Vishwanadh spearheads our overarching media strategy and leads final execution frameworks. 'Giving every campus story a distinctive voice.'",
             },
             { 
               role: "CLUB SECRETARY", 
               name: "B. Rishikesh", 
-              imgSrc: "/team/secretary.jpg",
-              responsibility: "Oversees daily operational sync lines, schedules communications calendars, manages cross-department content streams, and commands student journalism coverage logistics.",
-              dedication: "Ensuring organizational precision and editorial excellence so our platform runs like a well-oiled machine."
+              imgSrc: "/team/secretary_full.jpg", // NEW Path to high-res large photo asset
+              bio: "Rishikesh oversees daily operational sync lines, schedules communications calendars, and commands cross-department content streams.",
             },
             { 
               role: "CLUB ADMINISTRATOR", 
               name: "B. Sri Vardhan", 
-              imgSrc: "/team/admin.jpg",
-              responsibility: "Manages technical platform systems, portal assets, deployment rollouts, interface optimization frameworks, production web updates, and core server architecture handles.",
-              dedication: "Merging technological innovation with creative layout designs to deliver a seamless user experience."
+              imgSrc: "/team/admin_full.jpg", // NEW Path to high-res large photo asset
+              bio: "Sri Vardhan manages technical platform systems, portal deployment rollouts, interface optimization frameworks, and core server architecture handles.",
             }
           ].map((lead, idx) => (
             <motion.div 
               key={idx} 
               variants={teamCardVariant}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="team-glass-card group rounded-[24px] p-6 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-amber-500/40"
+              whileHover={{ 
+                y: -10, // Aggressive hover lift
+                scale: 1.02,
+                boxShadow: "0 25px 60px rgba(0,0,0,0.9)",
+                transition: { duration: 0.4 }
+              }}
+              className="group rounded-[32px] bg-[#050304]/80 border border-stone-800/80 p-0 flex flex-col justify-between relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:border-amber-500/60 transition-colors duration-400"
             >
-              {/* Backlit Glow Triggered on Hover */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-amber-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              
-              <div className="space-y-5">
-                {/* Header Profile Module */}
-                <div className="flex items-center space-x-4">
-                  {/* Photo Frame Container */}
-                  <div className="w-16 h-16 rounded-full border-2 border-stone-800 bg-stone-900 overflow-hidden flex-shrink-0 relative group-hover:border-amber-500/60 transition-colors duration-300 shadow-inner">
-                    {/* Fallback avatar vector if image is pending resolution */}
-                    <div className="absolute inset-0 bg-stone-950 flex items-center justify-center text-stone-700 font-bold uppercase text-xs">
-                      {lead.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <img 
-                      src={lead.imgSrc} 
-                      alt={lead.name}
-                      onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
-                      className="w-full h-full object-cover relative z-10 scale-100 group-hover:scale-110 transition-transform duration-500 object-top"
-                    />
+              <div className="space-y-0">
+                {/* ─── MASSIVE, FULL-HEIGHT AVATAR CONTAINER ─── */}
+                {/* Replicates the large portrait size of image_13.png, taking up the top half of the card */}
+                <div className="w-full aspect-[3/4] rounded-t-[32px] bg-stone-900 border-b-2 border-stone-800/80 overflow-hidden relative group-hover:border-amber-500/60 transition-colors duration-300">
+                  <div className="absolute inset-0 bg-stone-950 flex items-center justify-center text-stone-700 font-black uppercase text-4xl pointer-events-none z-0">
+                    {lead.name.split(' ').map(n => n[0]).join('')}
                   </div>
-                  
-                  {/* Title Metrics */}
-                  <div>
-                    <span className="text-[10px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
-                    <h3 className="text-xl font-black text-white uppercase tracking-tight mt-0.5 group-hover:text-amber-400 transition-colors duration-300">{lead.name}</h3>
-                  </div>
+                  <img 
+                    src={lead.imgSrc} 
+                    alt={lead.name}
+                    onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
+                    className="w-full h-full object-cover object-top relative z-10 scale-100 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {/* Internal top vignette shadow matching image_13.png vibe */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-stone-950/20 to-stone-950/60 z-20 pointer-events-none" />
                 </div>
 
-                {/* Expanded text content segments */}
-                <div className="space-y-4 pt-2">
+                {/* Condensed Typography & Unified Description Block */}
+                <div className="p-6 space-y-4">
                   <div>
-                    <h4 className="text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-1">Responsibilities</h4>
-                    <p className="text-stone-300 text-xs leading-relaxed font-sans font-medium text-left">
-                      {lead.responsibility}
-                    </p>
+                    <span className="text-[11px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight mt-0.5 group-hover:text-amber-400 transition-colors duration-300">{lead.name}</h3>
                   </div>
-                  
-                  <div className="bg-stone-950/40 rounded-xl p-3 border border-stone-900/60 relative">
-                    <Quote className="absolute right-3 top-3 w-4 h-4 text-stone-800 pointer-events-none" />
-                    <h4 className="text-[10px] font-bold text-amber-500/70 uppercase tracking-wider mb-1 text-left">Dedication Statement</h4>
-                    <p className="text-stone-400 text-xs italic leading-relaxed font-sans text-left pr-4">
-                      "{lead.dedication}"
-                    </p>
-                  </div>
+
+                  {/* SPECIFICATIONS DROPPED: Responsibilities and Dedication are replaced by a single short bio line */}
+                  <p className="text-stone-300 text-[13px] leading-relaxed font-sans font-medium text-left pr-4">
+                    {lead.bio}
+                  </p>
                 </div>
               </div>
               
-              {/* Foot-cap Verification Tag */}
-              <div className="pt-4 mt-6 border-t border-stone-900/80 flex items-center justify-between text-stone-600">
-                <div className="flex items-center space-x-2">
-                  <ShieldAlert className="w-3.5 h-3.5 text-stone-500 group-hover:text-amber-500/60 transition-colors duration-300" />
-                  <span className="text-[9px] font-black tracking-widest uppercase">Verified Council Board</span>
+              {/* Optimized Verification Tag Cap */}
+              <div className="p-6 pt-2 pb-5 text-stone-600">
+                <div className="pt-4 border-t border-stone-900/80 flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <ShieldAlert className="w-4 h-4 text-stone-500 group-hover:text-amber-500/60 transition-colors duration-300" />
+                    <span className="text-[10px] font-black tracking-widest uppercase">Verified Council Board</span>
+                  </div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 </div>
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
             </motion.div>
           ))}
@@ -225,6 +214,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. HIGHLIGHTS FEED */}
+      {/* (Preserved exactly as image_10.png) */}
       <section className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36">
         <div className="space-y-1">
           <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">HIGHLIGHTS FEED</span>
