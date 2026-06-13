@@ -1,398 +1,154 @@
-"use client";
+'use client';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Camera, ArrowRight, Layers, FileText, Mic, Video, Award, Users } from 'lucide-react';
+import AnimatedCounter from '@/app/components/AnimatedCounter';
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { 
-  TrendingUp, ArrowUpRight, Sparkles, Layers, Zap, Bell, Calendar, Clock, 
-  ChevronDown, Flame, Terminal, Cpu, Award, Globe, Radio, ShieldAlert 
-} from "lucide-react";
+const viewAnim = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
 
-interface NavItem {
-  name: string;
-  short: string;
-  icon: React.ReactNode;
-  current?: boolean; 
-}
-
-interface NavigationCategories {
-  departments: NavItem[];
-  academics: NavItem[];
-  campusClubs: NavItem[];
-}
-
-export default function SpecNewsConnectPremium() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isLogoExploded, setIsLogoExploded] = useState(false);
-
-  // Terminal Typewriter Engine State
-  const codeText = "// OVERTHROWING STANDARD PUBLICATION LOGIC VIA AUTONOMOUS ENGINEERING CODE.";
-  const [displayedCode, setDisplayedCode] = useState("");
-  const [startTypewriter, setStartTypewriter] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    
-    // Fire typewriter cycle after heading elements drop
-    const timer = setTimeout(() => setStartTypewriter(true), 1100);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      clearTimeout(timer);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!startTypewriter) return;
-    if (displayedCode.length < codeText.length) {
-      const i = displayedCode.length;
-      const timeout = setTimeout(() => {
-        setDisplayedCode((prev) => prev + codeText[i]);
-      }, 25);
-      return () => clearTimeout(timeout);
-    }
-  }, [displayedCode, startTypewriter]);
-
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  const bgShiftY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.92]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
-  const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
-
-  const navigationCategories: NavigationCategories = {
-    departments: [
-      { name: "Computer Science (AI & ML)", short: "CSE-AIML", icon: <Cpu size={14} /> },
-      { name: "Information Technology", short: "IT", icon: <Terminal size={14} /> },
-      { name: "Electronics & Communication", short: "ECE", icon: <Radio size={14} /> }
-    ],
-    academics: [
-      { name: "AI Autonomous Curriculum", short: "R26 Framework", icon: <Sparkles size={14} /> },
-      { name: "R&D Incubation Center", short: "SPEC Labs", icon: <Layers size={14} /> },
-      { name: "Intellectual Property Cell", short: "IPR", icon: <Award size={14} /> }
-    ],
-    campusClubs: [
-      { name: "SPEC News Connect", short: "MEDIA HQ", icon: <Flame size={14} />, current: true },
-      { name: "Shutterbugs Photo Club", short: "RECON TEAM", icon: <Globe size={14} /> },
-      { name: "Cyber Security Forum", short: "SEC OPS", icon: <ShieldAlert size={14} /> }
-    ]
-  };
-
+export default function HomePage() {
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#050506] text-[#F5F5F7] antialiased selection:bg-rose-600 selection:text-white overflow-hidden relative font-sans">
-      
-      {/* Immersive Responsive Mouse Aura Backing */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-500 opacity-70 hidden md:block"
-        style={{
-          backgroundImage: `
-            radial-gradient(650px circle at ${mousePos.x}px ${mousePos.y}px, rgba(225, 29, 72, 0.13), transparent 80%),
-            radial-gradient(250px circle at ${mousePos.x}px ${mousePos.y}px, rgba(245, 158, 11, 0.04), transparent 65%)
-          `
-        }}
-      />
+    <div className="space-y-36 pb-36 overflow-hidden">
+      {/* Dynamic Cinematic Hero */}
+      <section className="relative min-h-[85vh] flex items-center justify-center px-6">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)] pointer-events-none" />
+        
+        <div className="max-w-5xl mx-auto text-center space-y-8 relative z-10">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center space-x-3 px-4 py-2 premium-glass rounded-full text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            <span>Official Media Club of SPEC</span>
+          </motion.div>
 
-      {/* Reading Progress Metric Line */}
-      <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-rose-600 via-amber-500 to-rose-600 origin-left z-50" style={{ scaleX }} />
+          {/* Centered Massive Logo Backdrop Frame */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="space-y-4">
+            <img src="/logo.png" alt="SPEC News Logo" className="w-28 h-28 mx-auto object-contain filter drop-shadow-[0_0_35px_rgba(255,255,255,0.15)] mb-6" />
+            <h1 className="text-5xl sm:text-8xl font-black tracking-tighter text-white leading-none uppercase">
+              SPEC NEWS<br />CONNECT
+            </h1>
+          </motion.div>
 
-      {/* Advanced Navigation Node Framework */}
-      <nav className="fixed top-0 w-full z-40 bg-[#07070a]/80 backdrop-blur-2xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center space-x-8">
-          <div className="flex items-center space-x-2.5 group cursor-pointer">
-            <img src="/logo.png" alt="SN" className="h-7 w-auto rounded-full object-contain group-hover:rotate-12 transition-transform duration-300" />
-            <span className="font-black text-[11px] uppercase tracking-wider text-white">
-              SPEC NEWS <span className="text-rose-500 font-light">CONNECT</span>
-            </span>
-          </div>
+          <p className="text-zinc-400 text-base sm:text-lg max-w-xl mx-auto font-medium tracking-wide leading-relaxed">
+            Capturing campus stories, celebrating achievements, and giving every single student a voice.
+          </p>
 
-          <div className="hidden lg:flex items-center space-x-6 text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
-            {Object.keys(navigationCategories).map((key) => (
-              <div 
-                key={key} 
-                className="relative cursor-pointer py-1 hover:text-white transition-colors flex items-center gap-1"
-                onMouseEnter={() => setActiveDropdown(key)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <span>{key.replace(/([A-Z])/g, ' $1')}</span>
-                <ChevronDown size={10} className={`transition-transform duration-200 ${activeDropdown === key ? "rotate-180 text-rose-500" : ""}`} />
-                
-                <AnimatePresence>
-                  {activeDropdown === key && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 mt-3 w-64 bg-[#0a0a0f] border border-white/10 p-3 rounded-xl shadow-2xl space-y-1 pointer-events-auto"
-                    >
-                      {navigationCategories[key as keyof typeof navigationCategories].map((sub, i) => (
-                        <div 
-                          key={i} 
-                          className={`flex items-center justify-between p-2 rounded-lg transition-all ${!!sub.current ? "bg-rose-950/40 border border-rose-800/30 text-rose-400" : "hover:bg-white/5 text-neutral-300 hover:text-white"}`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className={!!sub.current ? "text-rose-500" : "text-neutral-500"}>{sub.icon}</span>
-                            <span className="text-[10px] tracking-normal capitalize font-medium">{sub.name}</span>
-                          </div>
-                          <span className="text-[8px] font-mono opacity-60 bg-white/5 px-1 rounded">{sub.short}</span>
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link href="/gallery" className="w-full sm:w-auto px-8 py-4 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-zinc-200 transition flex items-center justify-center space-x-2 group">
+              <span>View Gallery</span>
+              <Camera className="w-3.5 h-3.5 transition-transform group-hover:rotate-12" />
+            </Link>
+            <Link href="/articles" className="w-full sm:w-auto px-8 py-4 premium-glass border border-zinc-800 text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-zinc-900 transition flex items-center justify-center space-x-2 group">
+              <span>Read Articles</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
+      </section>
 
-        <a href="/admin/dashboard" className="bg-white text-black text-[10px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full hover:bg-rose-600 hover:text-white transition-all duration-300 shadow-xl">
-          HQ Console
-        </a>
-      </nav>
-
-      {/* Cinematic Gateway Hero Segment */}
-      <motion.section style={{ scale: heroScale, opacity: heroOpacity }} className="relative h-screen w-full flex items-center justify-center overflow-hidden px-6">
-        
-        {/* Dynamic Vector Grid System Layer */}
-        <motion.div style={{ y: bgShiftY }} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-          <div className="absolute w-[750px] h-[750px] bg-rose-600/5 rounded-full blur-[180px]" />
-          <div 
-            className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:40px_40px]" 
-            style={{
-              maskImage: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, black 15%, transparent 65%)`,
-              WebkitMaskImage: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, black 15%, transparent 65%)`
-            }}
-          />
+      {/* Grid: What We Do */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={viewAnim} className="text-center space-y-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-blue-500">Operational Scope</span>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white uppercase">What We Do</h2>
         </motion.div>
 
-        {/* FIXED: Background Rotating Wireframe Layout (Mixed-blend mode strips out the dark square background artifact) */}
-        <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none">
-          <motion.div 
-            animate={{ 
-              rotate: 360,
-              scale: isLogoExploded ? 1.25 : 1
-            }}
-            transition={{ 
-              rotate: { repeat: Infinity, duration: 55, ease: "linear" },
-              scale: { duration: 0.5, ease: "easeOut" }
-            }}
-            className="relative opacity-[0.03] filter grayscale invert scale-[1.7] md:scale-[2.2] mix-blend-screen"
-          >
-            <img src="/logo.png" alt="Background Matrix Graphic" className="w-[400px] h-auto object-contain" />
-          </motion.div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { icon: Camera, title: "Campus Coverage", desc: "Capturing institutional technical milestones and cultural life maps." },
+            { icon: FileText, title: "Article Publishing", desc: "Drafting analytical reviews, student opinions, and research reports." },
+            { icon: Mic, title: "Student Interviews", desc: "Amplifying voices through structured on-ground talk forums." },
+            { icon: Video, title: "Video Projects", desc: "Producing cinematic event breakdowns and structural club promotions." }
+          ].map((item, idx) => (
+            <motion.div key={idx} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={viewAnim} className="premium-glass premium-glass-hover p-6 rounded-2xl transition-all duration-300 group">
+              <item.icon className="w-6 h-6 text-blue-400 mb-4 transition-transform group-hover:scale-110" />
+              <h3 className="text-md font-bold text-white uppercase tracking-wider mb-2">{item.title}</h3>
+              <p className="text-zinc-500 text-xs leading-relaxed normal-case font-medium">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* High-Contrast Premium Newsroom Cards Grid */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
+        <div className="space-y-1">
+          <span className="text-xs font-bold text-blue-500 uppercase tracking-widest">Active Headlines</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">Featured Stories</h2>
         </div>
 
-        {/* Hero Central Content Container Wrapper */}
-        <div className="relative z-10 max-w-5xl w-full mx-auto space-y-10 flex flex-col items-center">
-          
-          {/* FIXED: Circularized Glowing Base Logo Hub */}
-          <motion.div 
-            whileHover={{ scale: 1.08, rotate: -8 }}
-            whileTap={{ scale: 0.95 }}
-            onHoverStart={() => setIsLogoExploded(true)}
-            onHoverEnd={() => setIsLogoExploded(false)}
-            className="cursor-pointer relative p-1.5 group"
-          >
-            {/* Multi-layered halo ring glow */}
-            <div className="absolute inset-0 bg-rose-600 rounded-full blur-2xl opacity-20 group-hover:opacity-90 transition-opacity duration-500" />
-            <div className="absolute inset-[-4px] bg-gradient-to-r from-rose-500 via-amber-500 to-rose-600 rounded-full opacity-0 group-hover:opacity-40 animate-spin transition-opacity duration-500" style={{ animationDuration: '6s' }} />
-            
-            <motion.div 
-              animate={{ rotate: -360 }}
-              transition={{ repeat: Infinity, duration: 35, ease: "linear" }}
-              className="relative p-3 bg-[#07070a] border border-rose-500/20 group-hover:border-rose-500 rounded-full shadow-[0_0_40px_rgba(225,29,72,0.2)] transition-all duration-300"
-            >
-              <img 
-                src="/logo.png" 
-                alt="Central Base Logo Core" 
-                className="w-20 h-20 md:w-26 md:h-26 rounded-full object-cover p-1.5 bg-black/50"
-              />
-            </motion.div>
-          </motion.div>
-
-          {/* Typography Display Hierarchy Block */}
-          <div className="w-full flex flex-col items-center space-y-5">
-            <motion.div 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center space-x-2 bg-[#0e0e14] border border-white/10 px-4 py-1.5 rounded-full text-[9px] uppercase tracking-widest text-rose-500 font-black shadow-inner"
-            >
-              <Sparkles size={11} className="text-amber-500 animate-spin" style={{ animationDuration: '3s' }} />
-              <span>ST. PETER'S MEDIA HQ NETWORK</span>
-            </motion.div>
-
-            {/* Massive Modern Header Display */}
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-white uppercase select-none text-center bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-neutral-500/70 drop-shadow-2xl">
-              SPEC NEWS
-            </h1>
-
-            {/* Premium Asymmetric Left-Aligned Container Frame */}
-            <div className="w-full max-w-2xl text-left mt-4 space-y-5 px-4 md:px-0">
-              
-              <div className="flex gap-5 items-stretch">
-                {/* Vertical Accent Transforming Anchor Line */}
-                <motion.div 
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="w-[3px] bg-gradient-to-b from-rose-500 to-amber-500 origin-top shrink-0 shadow-[0_0_15px_rgba(225,29,72,0.5)]"
-                />
-                
-                <motion.p 
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
-                  className="text-lg md:text-xl italic font-light tracking-wide text-neutral-100 leading-relaxed drop-shadow"
-                >
-                  "True prestige is not about standing out from the crowd; it is about setting a standard so distinct that others define themselves by your absence."
-                </motion.p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {[
+            { cat: "Tech Coverage", title: "Annual Technical Fest Spectrum Recap", date: "June 2026", img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600" },
+            { cat: "Achievement", title: "Student Innovations Shifting Regional Engineering Metrics", date: "May 2026", img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600" },
+            { cat: "Briefing", title: "Media & Journalism Evolution Across Campus Formats", date: "April 2026", img: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600" }
+          ].map((story, i) => (
+            <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={viewAnim} className="premium-glass rounded-2xl overflow-hidden group border border-zinc-900 hover:border-zinc-800 transition duration-300 flex flex-col justify-between">
+              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                <img src={story.img} alt="" className="object-cover w-full h-full opacity-60 group-hover:opacity-100 group-hover:scale-105 transition duration-500" />
+                <span className="absolute top-4 left-4 text-[9px] font-bold uppercase tracking-widest bg-black px-2.5 py-1 rounded text-blue-400 border border-zinc-800">
+                  {story.cat}
+                </span>
               </div>
-
-              {/* Dynamic Living Code Typewriter Text Terminal Entry */}
-              <p className={`text-[11px] md:text-xs font-mono tracking-[0.16em] text-rose-500/80 uppercase pl-[23px] min-h-[1.5rem] leading-relaxed ${displayedCode.length < codeText.length ? "terminal-cursor" : ""}`}>
-                {displayedCode}
-              </p>
-              
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Primary Card Grid Frame Layout */}
-      <main className="max-w-7xl mx-auto px-6 md:px-12 space-y-36 pb-36 relative z-20">
-        
-        {/* Editorial Spotlight Block */}
-        <section id="featured" className="scroll-mt-28">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-rose-500 mb-2 font-bold flex items-center gap-2">
-                <Layers size={13} /> Editorial Spotlight
-              </p>
-              <h2 className="text-2xl md:text-4xl font-black tracking-tight text-white">Featured Stories</h2>
-            </div>
-            <TrendingUp className="text-neutral-800 hidden md:block" size={32} />
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <motion.div 
-              whileHover={{ y: -6, borderColor: "rgba(225, 29, 72, 0.35)" }}
-              className="lg:col-span-2 relative bg-[#0b0b10] border border-white/5 rounded-2xl p-8 md:p-10 min-h-[380px] flex flex-col justify-between group cursor-pointer overflow-hidden transition-colors"
-            >
-              <div className="absolute top-0 right-0 w-40 h-40 bg-rose-600/5 rounded-full blur-3xl group-hover:bg-rose-600/10 transition-colors duration-500" />
-              <div className="flex justify-between items-center z-10">
-                <span className="bg-rose-600 text-white text-[9px] uppercase tracking-widest font-extrabold px-2.5 py-1 rounded">Cover Story</span>
-                <ArrowUpRight size={18} className="text-neutral-500 group-hover:text-white transition-colors" />
-              </div>
-              <div className="space-y-3 z-10">
-                <h3 className="text-xl md:text-3xl font-black tracking-tight text-white group-hover:text-neutral-200 transition-colors">
-                  The Genesis of Next-Gen Robotics: SPEC Tech Team Breaks Records at National Conclave
+              <div className="p-6 space-y-4 flex-grow flex flex-col justify-between">
+                <h3 className="text-lg font-bold text-white tracking-tight leading-snug group-hover:text-blue-400 transition-colors">
+                  {story.title}
                 </h3>
-                <p className="text-neutral-400 font-light text-xs md:text-sm max-w-xl">
-                  An exclusive look detailing how our engineering majors built a custom autonomous drone ecosystem inside campus development labs.
-                </p>
+                <div className="flex items-center justify-between pt-4 border-t border-zinc-900 text-[10px] font-bold uppercase text-zinc-500">
+                  <span>{story.date}</span>
+                  <span className="text-white group-hover:underline">Read &rarr;</span>
+                </div>
               </div>
             </motion.div>
+          ))}
+        </div>
+      </section>
 
-            <div className="space-y-4">
-              {[
-                { cat: "Smart Campus", title: "Green Energy Grid Systems Deployment Across Blocks" },
-                { cat: "Academics", title: "Decoding the New AI-Driven Autonomous Curriculum Framework" }
-              ].map((item, idx) => (
-                <motion.div 
-                  key={idx}
-                  whileHover={{ x: 6, borderColor: "rgba(225, 29, 72, 0.25)" }}
-                  className="bg-[#0b0b10] border border-white/5 rounded-xl p-5 h-[180px] flex flex-col justify-between cursor-pointer group transition-all"
-                >
-                  <span className="text-[9px] uppercase tracking-widest font-bold text-rose-500 flex items-center gap-1">
-                    <Zap size={11} /> {item.cat}
-                  </span>
-                  <h4 className="text-md font-bold tracking-tight text-white group-hover:text-neutral-300 transition-colors">
-                    {item.title}
-                  </h4>
-                  <span className="text-[10px] text-neutral-500 font-mono flex items-center gap-1 group-hover:text-white transition-colors">
-                    Read Update <ArrowUpRight size={11} />
-                  </span>
-                </motion.div>
-              ))}
+      {/* Metrics Counter Grid Block */}
+      <section className="bg-[#050507] border-y border-zinc-900 py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+          {[
+            { num: 50, label: "Articles Published" },
+            { num: 100, label: "Events Covered" },
+            { num: 500, label: "Photos Captured" },
+            { num: 1000, label: "Students Reached" }
+          ].map((stat, i) => (
+            <div key={i} className="space-y-2">
+              <AnimatedCounter value={stat.num} suffix="+" />
+              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{stat.label}</p>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </section>
 
-        {/* Live Operational Bulletins */}
-        <section id="announcements" className="scroll-mt-28">
-          <div className="mb-10">
-            <p className="text-[10px] uppercase tracking-widest text-rose-500 mb-2 font-bold flex items-center gap-2">
-              <Bell size={13} className="animate-pulse" /> Operational Bulletins
-            </p>
-            <h2 className="text-2xl md:text-4xl font-black tracking-tight text-white">Live Announcements</h2>
-          </div>
+      {/* Core Operational Board Board-Preview */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
+        <div className="text-center space-y-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-blue-500">Executive Council</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight">Club Leadership</h2>
+        </div>
 
-          <div className="space-y-3">
-            {[
-              { tag: "Examination", date: "June 12, 2026", msg: "End-Semester Theory Lab Evaluations Timetable Released for Year II & IV.", urgent: true },
-              { tag: "Placements", date: "June 10, 2026", msg: "Registration window open for Global Tech Campus Hiring Drive. Deadline tonight.", urgent: false },
-              { tag: "Administration", date: "June 08, 2026", msg: "Campus Wi-Fi core switch upgrade scheduled for Sunday 02:00 IST. Expect brief latency drop.", urgent: false }
-            ].map((ann, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ backgroundColor: "rgba(255,255,255,0.02)", borderColor: ann.urgent ? "#e11d48" : "rgba(255,255,255,0.1)" }}
-                className={`p-5 bg-[#0b0b10] rounded-xl border ${ann.urgent ? "border-rose-600/30" : "border-white/5"} flex flex-col md:flex-row md:items-center justify-between gap-3 cursor-pointer transition-colors`}
-              >
-                <div className="flex items-center space-x-3">
-                  <span className={`text-[8px] uppercase tracking-widest font-black px-2 py-0.5 rounded ${ann.urgent ? "bg-rose-600/20 text-rose-400" : "bg-white/5 text-neutral-400"}`}>
-                    {ann.tag}
-                  </span>
-                  <p className="text-xs md:text-sm text-neutral-300 font-medium">{ann.msg}</p>
-                </div>
-                <span className="text-[10px] font-mono text-neutral-500">{ann.date}</span>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Campus Engagements Calendar Array */}
-        <section id="events" className="scroll-mt-28">
-          <div className="mb-10">
-            <p className="text-[10px] uppercase tracking-widest text-rose-500 mb-2 font-bold flex items-center gap-2">
-              <Calendar size={13} /> Campus Engagements
-            </p>
-            <h2 className="text-2xl md:text-4xl font-black tracking-tight text-white">Upcoming Events</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name: "SPEC HackFest 2026", type: "Technical Hackathon", delay: "2 Days Left", info: "36-Hour continuous build sprint across AI and Web3 tracks." },
-              { name: "National Cyber Security Forum", type: "Guest Lecture Series", delay: "Next Week", info: "Keynote talks by leading data defense architects from industry." },
-              { name: "Annual Cultural Fest", type: "Campus Celebration", delay: "June 25", info: "Inter-college staging competitions, music ensembles, and gallery arts." }
-            ].map((ev, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -6, borderColor: "rgba(225, 29, 72, 0.3)" }}
-                className="bg-[#0b0b10] border border-white/5 rounded-2xl p-6 flex flex-col justify-between min-h-[200px] cursor-pointer group transition-all"
-              >
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[9px] font-mono text-neutral-500 uppercase">{ev.type}</span>
-                    <span className="text-[9px] bg-rose-600/10 text-rose-400 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <Clock size={9} /> {ev.delay}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white pt-1 group-hover:text-rose-500 transition-colors">{ev.name}</h3>
-                  <p className="text-xs text-neutral-400 font-light leading-relaxed">{ev.info}</p>
-                </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-neutral-500 group-hover:text-white transition-colors">
-                  <span>Acquire Gateway Pass</span>
-                  <ArrowUpRight size={12} />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-      </main>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { role: "President", name: "G. Vishwanadh" },
+            { role: "Secretary", name: "B. Rishikesh" },
+            { role: "Club Admin", name: "B. Sri Vardhan" }
+          ].map((lead, idx) => (
+            <div key={idx} className="premium-glass p-8 rounded-2xl border border-zinc-900 hover:border-zinc-800 text-center space-y-4 group transition-all duration-300 relative overflow-hidden">
+              <div className="w-14 h-14 bg-zinc-900/50 rounded-full mx-auto flex items-center justify-center border border-zinc-800 group-hover:border-blue-500/30 transition-colors">
+                <Users className="w-5 h-5 text-zinc-500 group-hover:text-blue-400 transition-colors" />
+              </div>
+              <div>
+                <span className="text-[9px] font-black uppercase tracking-widest text-blue-400 bg-blue-950/30 px-3 py-1 rounded-full border border-blue-900/30">
+                  {lead.role}
+                </span>
+                <h3 className="text-xl font-bold text-white tracking-tight mt-4">{lead.name}</h3>
+                <p className="text-xs text-zinc-500 font-medium mt-1 uppercase tracking-wider">SPEC NEWS CONNECT</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
