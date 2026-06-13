@@ -1,13 +1,27 @@
 ﻿'use client';
+import { useState } from 'react'; // Added internal fallback state
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+// Made the props optional using "?" so <Navbar /> can sit safely in layout.tsx
 interface NavbarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  activeTab?: string;
+  setActiveTab?: (tab: string) => void;
 }
 
 export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
+  // Local fallback state in case props aren't passed from a parent layout
+  const [localActiveTab, setLocalActiveTab] = useState('Home');
+  
+  const currentTab = activeTab !== undefined ? activeTab : localActiveTab;
+  const handleTabChange = (item: string) => {
+    if (setActiveTab) {
+      setActiveTab(item);
+    } else {
+      setLocalActiveTab(item);
+    }
+  };
+
   return (
     <div className="fixed top-5 left-0 right-0 z-50 w-full flex justify-center px-4">
       
@@ -44,11 +58,11 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
         {/* COMPACT ROUTE LINKS */}
         <div className="flex items-center space-x-1">
           {['Home', 'Articles', 'Gallery', 'Team', 'Contact'].map((item) => {
-            const isActive = activeTab === item;
+            const isActive = currentTab === item;
             return (
               <button
                 key={item}
-                onClick={() => setActiveTab(item)}
+                onClick={() => handleTabChange(item)}
                 className={`relative px-4 py-2 text-[10px] font-black uppercase tracking-[0.16em] rounded-full transition-all focus:outline-none ${
                   isActive ? 'text-amber-400' : 'text-stone-400 hover:text-white'
                 }`}
