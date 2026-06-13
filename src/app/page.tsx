@@ -81,7 +81,7 @@ export default function HomePage() {
       </div>
 
       {/* 2. HERO SECTION */}
-      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-48 pb-12 gap-12">
+      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-32 pb-12 gap-12">
         <motion.div 
           initial="hidden" animate="visible" variants={revealVariant}
           className="space-y-8 max-w-2xl"
@@ -135,7 +135,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* 3. CLUB BOARD (PLACED RIGHT UNDER HERO OVER IMPACT DASHBOARD) */}
+      {/* 3. OPERATIONAL COUNCIL TEAM (MOVED HERE DIRECTLY UNDER THE HERO SECTION) */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-12"
