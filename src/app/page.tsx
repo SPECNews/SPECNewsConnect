@@ -52,7 +52,7 @@ export default function HomePage() {
       
       {/* 1. LIGHT UNDER CURSOR & BACKGROUND PARALLAX EMBLEM */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        {/* Dynamic Under-Cursor Spotlight Dynamic Array */}
+        {/* Dynamic Under-Cursor Spotlight */}
         <motion.div 
           className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block"
           style={{
@@ -67,7 +67,7 @@ export default function HomePage() {
         <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/15 blur-[140px]" />
         <div className="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-amber-950/5 blur-[160px]" />
         
-        {/* Dynamic Watermark Logo Backdrop Matrix */}
+        {/* Dynamic Watermark Logo Backdrop */}
         <motion.div 
           style={{ x: smoothX, y: smoothY }}
           className="fixed inset-0 flex items-center justify-center z-0"
@@ -80,8 +80,8 @@ export default function HomePage() {
         </motion.div>
       </div>
 
-      {/* 2. HERO SECTION — HIGH CONTRAST LAYOUT BLOCK */}
-      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[96vh] relative z-10 pt-40 gap-12">
+      {/* 2. HERO SECTION — ADJUSTED PADDING FOR FULL-WIDTH NAVIGATION BAR */}
+      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-48 pb-12 gap-12">
         <motion.div 
           initial="hidden" animate="visible" variants={revealVariant}
           className="space-y-8 max-w-2xl"
@@ -92,9 +92,9 @@ export default function HomePage() {
           </div>
           
           <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.08]">
-            THE OFFICIAL PRESS & <br />
+            CAPTURING MOMENTS. <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-stone-200 to-stone-400">
-              MEDIA COUNCIL OF SPEC.
+              CHRONICLING STORIES.
             </span><br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-red-500 to-amber-200">
               BROADCASTING CAMPUS LIFE.
@@ -102,7 +102,7 @@ export default function HomePage() {
           </h1>
           
           <p className="text-stone-400 text-sm sm:text-base normal-case leading-relaxed font-medium max-w-xl">
-            From technical summits and student achievements to campus bulletins, we are your eyes and ears on the ground. Documenting history and connecting students across every department at St. Peter's Engineering College.
+            Welcome to the official media console of SPEC NEWS Connect at St. Peter's Engineering College. We command verified high-fidelity event records, broadcast campus updates, and chronicle student journalism achievements.
           </p>
           
           <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
@@ -116,7 +116,7 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        {/* LARGE TRUE-CENTER FULL IMPACT LOGO EMBLEM */}
+        {/* LARGE TRUE-CENTER LOGO EMBLEM */}
         <motion.div 
           initial="hidden" animate="visible" variants={revealVariant}
           whileHover={{ scale: 1.03 }}
@@ -135,7 +135,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* 3. MEDIA HUB METRICS ROW */}
+      {/* 3. CLUB IMPACT DASHBOARD METRICS BOX */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 relative z-10 mt-12"
@@ -143,7 +143,7 @@ export default function HomePage() {
         <div className="bg-stone-950/40 backdrop-blur-md border border-stone-900 rounded-3xl p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           <div className="space-y-2">
             <div className="inline-block bg-red-950/40 border border-red-900/60 px-3 py-1 rounded-md text-[9px] font-black tracking-widest text-red-400 uppercase">
-              STUDENT JOURNALISM
+              CLUB IMPACT DASHBOARD
             </div>
             <h2 className="text-xl font-extrabold text-white uppercase tracking-tight">Cinematic Media Hub</h2>
             <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans">
@@ -153,10 +153,10 @@ export default function HomePage() {
 
           <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { metric: "100%", tag: "STUDENT RUN" },
-              { metric: "150+", tag: "EVENTS COVERED" },
-              { metric: "5K+", tag: "CAMPUS REACH" },
-              { metric: "24/7", tag: "LIVE UPDATES" }
+              { metric: "50+", tag: "PUBLICATIONS FILED" },
+              { metric: "20+", tag: "EVENTS COVERED" },
+              { metric: "1000+", tag: "STAKEHOLDERS REACHED" },
+              { metric: "15+", tag: "CREDENTIALED REPORTERS" }
             ].map((stat, i) => (
               <div key={i} className="bg-stone-950 border border-stone-900 p-5 rounded-2xl text-center space-y-1 hover:border-stone-800 transition">
                 <span className="text-2xl sm:text-3xl font-black tracking-tight text-white block">{stat.metric}</span>
@@ -167,7 +167,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* 4. CHRONICLES BULLETIN HIGHLIGHTS FEED */}
+      {/* 4. HIGHLIGHTS CHRONICLES FEED */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36"
@@ -203,7 +203,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* 5. OPERATIONAL GOVERNANCE COUNCIL */}
+      {/* 5. OPERATIONAL COUNCIL TEAM */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36"
