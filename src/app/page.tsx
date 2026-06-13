@@ -16,16 +16,16 @@ export default function HomePage() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth mouse coordinates for spotlight tracking
-  const lightX = useSpring(mouseX, { stiffness: 120, damping: 20 });
-  const lightY = useSpring(mouseY, { stiffness: 120, damping: 20 });
+  // High-performance spring vectors for cursor-under-glow spotlight tracking
+  const lightX = useSpring(mouseX, { stiffness: 150, damping: 25 });
+  const lightY = useSpring(mouseY, { stiffness: 150, damping: 25 });
 
-  // Background Parallax vector transformations
+  // Parallax vectors for the dynamic background watermark logo
   const x = useTransform(mouseX, [0, windowSize.width], [-40, 40]);
   const y = useTransform(mouseY, [0, windowSize.height], [-30, 30]);
 
-  const smoothX = useSpring(x, { stiffness: 150, damping: 25 });
-  const smoothY = useSpring(y, { stiffness: 150, damping: 25 });
+  const smoothX = useSpring(x, { stiffness: 120, damping: 30 });
+  const smoothY = useSpring(y, { stiffness: 120, damping: 30 });
 
   useEffect(() => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
@@ -49,80 +49,82 @@ export default function HomePage() {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="pb-32 relative overflow-hidden min-h-screen bg-[#030001] text-white selection:bg-red-950 selection:text-amber-400">
+    <div className="pb-32 relative overflow-hidden min-h-screen bg-[#020001] text-white selection:bg-red-950 selection:text-amber-400">
       
-      {/* IMMERSIVE LIGHT DISCOVERY GRID & PARALLAX CANVAS */}
+      {/* 1. DYNAMIC LIGHT UNDER THE CURSOR & BACKGROUND PARALLAX EMBLEM */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        {/* Dynamic Under-Cursor Spotlight Engine */}
+        
+        {/* Cursor Glow Matrix */}
         <motion.div 
-          className="fixed inset-0 mix-blend-screen opacity-60 hidden lg:block"
+          className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block"
           style={{
             background: useTransform(
               [lightX, lightY],
-              ([cx, cy]) => `radial-gradient(650px circle at ${cx}px ${cy}px, rgba(153, 27, 27, 0.18) 0%, rgba(217, 119, 6, 0.04) 40%, transparent 70%)`
+              ([cx, cy]) => `radial-gradient(600px circle at ${cx}px ${cy}px, rgba(185, 28, 28, 0.22) 0%, rgba(245, 158, 11, 0.05) 45%, transparent 70%)`
             )
           }}
         />
 
-        {/* Ambient Secondary Edge Glows */}
-        <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/10 blur-[140px]" />
+        {/* Ambient Dark Velvet Backing Gradients */}
+        <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/15 blur-[140px]" />
         <div className="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-amber-950/5 blur-[160px]" />
         
-        {/* Parallax Core Watermark Emblem Grid */}
+        {/* Dynamic Logo Watermark Backdrop */}
         <motion.div 
           style={{ x: smoothX, y: smoothY }}
           className="fixed inset-0 flex items-center justify-center z-0"
         >
           <img 
             src="/logo.png" 
-            alt="SPEC Background Canvas Logo" 
-            className="w-[88vw] h-[88vw] sm:w-[72vw] sm:h-[72vw] object-contain opacity-[0.11] filter drop-shadow-[0_0_80px_rgba(153,27,27,0.1)]"
+            alt="SPEC Dynamic Canvas Logo" 
+            className="w-[90vw] h-[90vw] sm:w-[75vw] sm:h-[75vw] object-contain opacity-[0.12] filter drop-shadow-[0_0_100px_rgba(185,28,28,0.08)]"
           />
         </motion.div>
       </div>
 
-      {/* RE-ENGINEERED PREMIUM GLASSMORPHISM NAVIGATION ENGINE */}
+      {/* 2. PREMIUM HIGH-GLOW EYE-CATCHING NAVIGATION DOCK */}
       <nav className="fixed top-6 left-0 right-0 z-50 max-w-5xl mx-auto px-4">
-        <div className="relative group rounded-full p-[1px] bg-gradient-to-r from-stone-800/40 via-amber-500/10 to-stone-800/40 backdrop-blur-xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] transition-all duration-500 hover:border-stone-700/50">
-          <div className="absolute inset-0 rounded-full bg-stone-950/80 -z-10" />
+        {/* Outer Glow container edge */}
+        <div className="relative rounded-full p-[1px] bg-gradient-to-r from-stone-800/80 via-amber-500/40 to-stone-800/80 backdrop-blur-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.85)] shadow-red-950/20">
+          <div className="absolute inset-0 rounded-full bg-black/90 -z-10" />
           
           <div className="px-6 py-3 flex items-center justify-between">
-            {/* Branding Core Vector */}
-            <Link href="/" className="flex items-center space-x-3.5 group/logo">
-              <div className="relative w-10 h-10 rounded-full bg-black ring-1 ring-white/10 overflow-hidden p-0 transition-transform duration-500 group-hover/logo:scale-105 shadow-[0_0_20px_rgba(217,119,6,0.15)]">
+            {/* Highly Visible SPEC News Connect Logo Branding */}
+            <Link href="/" className="flex items-center space-x-3 group/logo">
+              <div className="relative w-9 h-9 rounded-full bg-stone-950 border border-amber-500/40 overflow-hidden p-0 shadow-[0_0_15px_rgba(245,158,11,0.25)] transition-transform duration-300 group-hover/logo:scale-105">
                 <img 
                   src="/logo.png" 
-                  alt="SPEC Logo" 
-                  className="w-full h-full object-cover scale-105 transform transition duration-500 group-hover/logo:brightness-110" 
+                  alt="SPEC Navbar Logo" 
+                  className="w-full h-full object-cover scale-110 filter brightness-110" 
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-stone-100 to-stone-300 uppercase">
+              <div className="flex flex-col leading-tight">
+                <span className="text-sm font-black tracking-wider text-white uppercase group-hover/logo:text-amber-400 transition-colors duration-300">
                   SPEC NEWS
                 </span>
-                <span className="text-[10px] font-extrabold text-amber-500 tracking-[0.25em] uppercase mix-blend-plus-lighter">
+                <span className="text-[10px] font-black text-amber-500 tracking-[0.22em] uppercase">
                   CONNECT
                 </span>
               </div>
             </Link>
 
-            {/* Click-Optimized Interactive Navigation Tracks */}
-            <div className="flex items-center space-x-1 relative">
+            {/* Click-Optimized Glowing Action Tabs */}
+            <div className="flex items-center space-x-1">
               {['Home', 'Articles', 'Gallery', 'Team', 'Contact'].map((item) => {
                 const isActive = activeTab === item;
                 return (
                   <button
                     key={item}
                     onClick={() => setActiveTab(item)}
-                    className={`relative px-4 py-2 text-[11px] font-black uppercase tracking-widest transition-all duration-300 rounded-full focus:outline-none ${
-                      isActive ? 'text-amber-400' : 'text-stone-400 hover:text-stone-100'
+                    className={`relative px-4 py-2 text-[11px] font-black uppercase tracking-widest transition-all duration-300 rounded-full ${
+                      isActive ? 'text-amber-400 font-extrabold' : 'text-stone-400 hover:text-white'
                     }`}
                   >
                     {isActive && (
                       <motion.span
-                        layoutId="navGlowDock"
-                        className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-950/60 to-amber-950/40 border border-amber-500/30 rounded-full shadow-[0_0_15px_rgba(217,119,6,0.15)] -z-10"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        layoutId="navActiveGlow"
+                        className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-950/80 to-amber-950/60 border border-amber-500/40 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.2)] -z-10"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
                     <span className="relative z-10">{item}</span>
@@ -134,120 +136,159 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* CORE HERO INTERFACE LAYER */}
-      <section className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center justify-center min-h-[95vh] relative z-10 pt-36">
+      {/* 3. HERO LAYER & ULTRA-LARGE CLEAR EMBLEM */}
+      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[96vh] relative z-10 pt-32 gap-12">
         <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={revealVariant}
-          className="space-y-10 flex flex-col items-center"
+          initial="hidden" animate="visible" variants={revealVariant}
+          className="space-y-8 max-w-2xl"
         >
-          {/* Edge-to-Edge Circular Centered Emblem Module */}
-          <motion.div whileHover={{ scale: 1.04 }} className="relative group/emblem cursor-pointer">
-            <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-amber-500 via-red-700 to-amber-600 opacity-30 blur-xl group-hover/emblem:opacity-60 transition duration-700 animate-pulse" />
-            <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-amber-500/40 to-red-600/40 opacity-100 blur-sm group-hover/emblem:scale-105 transition duration-500" />
-            
-            {/* The circle frame has p-0 and object-cover to ensure the logo fills it fully and crisply */}
-            <div className="w-28 h-28 rounded-full bg-black border border-amber-500/40 flex items-center justify-center p-0 relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
-              <img 
-                src="/logo.png" 
-                alt="SPEC News Full Fill Emblem" 
-                className="w-full h-full object-cover scale-105 filter brightness-110 drop-shadow-[0_0_10px_rgba(217,119,6,0.3)] transition-transform duration-500 group-hover/emblem:scale-110" 
-              />
-            </div>
-          </motion.div>
-
-          <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/50 to-stone-900/50 border border-amber-500/20 px-5 py-2 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            <Trophy className="w-3.5 h-3.5 text-amber-500 animate-bounce" />
-            <span className="text-[10px] font-black tracking-[0.2em] uppercase text-amber-400">Official Media & Communications Council</span>
+          <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/60 to-stone-900/40 border border-amber-500/30 px-4 py-1.5 rounded-full shadow-lg">
+            <Trophy className="w-3.5 h-3.5 text-amber-500" />
+            <span className="text-[10px] font-black tracking-widest uppercase text-amber-400">Official Media Platform</span>
           </div>
           
-          <h1 className="text-4xl sm:text-7xl font-black text-white uppercase tracking-tight leading-[1.05] max-w-3xl">
-            CAPTURING MOMENTS.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-red-500 to-amber-200 drop-shadow-[0_2px_20px_rgba(239,68,68,0.1)]">
-              CHRONICLING STORIES.
+          <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.08]">
+            SPEC News Connect — <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-stone-200 to-stone-400">
+              cinematic campus narratives,
+            </span><br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-red-500 to-amber-200">
+              engineered for premium audiences.
             </span>
           </h1>
           
-          <p className="text-stone-400 text-sm sm:text-base normal-case leading-relaxed max-w-2xl font-sans font-medium">
-            Welcome to the official media console of <strong className="text-white font-semibold">SPEC NEWS Connect</strong> at St. Peter's Engineering College. We command verified high-fidelity event records, broadcast campus updates, and chronicle student journalism achievements.
+          <p className="text-stone-400 text-sm sm:text-base normal-case leading-relaxed font-medium max-w-xl">
+            Experience campus journalism with a dark cinematic interface, immersive editorial flows, and premium story presentation for St. Peter's Engineering College.
           </p>
           
-          <div className="pt-4">
-            <Link href="/articles" className="relative inline-flex items-center space-x-3 px-9 py-4 bg-gradient-to-r from-red-700 to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 shadow-[0_20px_40px_-10px_rgba(185,28,28,0.4)] group">
+          <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
+            <Link href="/articles" className="inline-flex items-center space-x-3 px-8 py-3.5 bg-gradient-to-r from-red-700 to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition shadow-[0_15px_30px_-5px_rgba(185,28,28,0.4)] group">
               <span>EXPLORE ARTICLES</span>
               <ArrowRight className="w-4 h-4 text-amber-300 transform transition-transform group-hover:translate-x-1" />
             </Link>
+            <Link href="/gallery" className="inline-flex items-center space-x-2 px-7 py-3.5 bg-stone-950/80 border border-stone-800 hover:border-stone-700 text-stone-300 font-black text-xs uppercase tracking-widest rounded-xl transition">
+              <span>VIEW GALLERY</span>
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* LARGE EDGE-TO-EDGE CIRCULAR GOLD GLOW EMBLEM */}
+        <motion.div 
+          initial="hidden" animate="visible" variants={revealVariant}
+          whileHover={{ scale: 1.03 }}
+          className="relative group/emblem cursor-pointer flex-shrink-0"
+        >
+          {/* Intense Outer Golden Glowing Design Background Layers */}
+          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-amber-500 via-red-600 to-yellow-500 opacity-25 blur-2xl group-hover/emblem:opacity-45 transition duration-700 animate-pulse" />
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500/50 to-red-600/50 opacity-100 blur-md group-hover/emblem:scale-105 transition duration-500" />
+          
+          {/* The Circular Frame container is set to size w-64 h-64 with p-0 and object-cover to make sure the image fills it clearly up to the margins */}
+          <div className="w-60 h-60 sm:w-72 sm:h-72 rounded-full bg-black border border-amber-500/50 flex items-center justify-center p-0 relative shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden">
+            <img 
+              src="/logo.png" 
+              alt="SPEC Full-Scale Clear Emblem" 
+              className="w-full h-full object-cover scale-105 filter brightness-110 contrast-105 transition-transform duration-500 group-hover/emblem:scale-110" 
+            />
           </div>
         </motion.div>
       </section>
 
-      {/* LATEST DIGITAL BROADCASTS FEED */}
+      {/* 4. REAL-TIME HIGH-FIDELITY IMPACT METRICS PANEL */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
-        className="max-w-6xl mx-auto px-6 space-y-8 relative z-10 mt-12"
+        className="max-w-6xl mx-auto px-6 relative z-10 mt-12"
       >
-        <div className="text-center md:text-left space-y-1">
-          <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">CAMPUS CHRONICLES</span>
-          <h2 className="text-3xl font-black text-white uppercase tracking-tight">Featured Bulletins</h2>
+        <div className="bg-stone-950/40 backdrop-blur-md border border-stone-900 rounded-3xl p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+          <div className="space-y-2">
+            <div className="inline-block bg-red-950/40 border border-red-900/60 px-3 py-1 rounded-md text-[9px] font-black tracking-widest text-red-400 uppercase">
+              AWARD-WINNING DESIGN
+            </div>
+            <h2 className="text-xl font-extrabold text-white uppercase tracking-tight">Cinematic Media Hub</h2>
+            <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans">
+              A fluid editorial environment layered with animated metrics, premium cards, and cinematic visual storytelling.
+            </p>
+          </div>
+
+          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { metric: "78%", tag: "ENGAGEMENT SPEED" },
+              { metric: "120+", tag: "INDEXED NARRATIVES" },
+              { metric: "16K+", tag: "NETWORK METRICS" },
+              { metric: "42+", tag: "PROCESSED LOGS" }
+            ].map((stat, i) => (
+              <div key={i} className="bg-stone-950 border border-stone-900 p-5 rounded-2xl text-center space-y-1 hover:border-stone-800 transition">
+                <span className="text-2xl sm:text-3xl font-black tracking-tight text-white block">{stat.metric}</span>
+                <span className="text-[8px] font-bold tracking-wider text-stone-500 uppercase block">{stat.tag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 5. CAMPUS HIGHLIGHTS FEED CHRONICLES */}
+      <motion.section 
+        initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
+        className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36"
+      >
+        <div className="space-y-1">
+          <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">HIGHLIGHTS FEED</span>
+          <h2 className="text-2xl font-black text-white uppercase tracking-tight">Latest Campus Narratives</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { icon: Camera, tag: "PHOTOGRAPHY TEAM", title: "Technical Spectrum Summit Recap", desc: "A high-fidelity curation of visual designs and engineering innovations documented across this year's technical panels." },
-            { icon: BookOpen, tag: "EDITORIAL DESK", title: "Orientation Ceremonies Coverages", desc: "The campus systems synchronized beautifully as our press crews covered welcoming assemblies for incoming freshers." },
-            { icon: Trophy, tag: "COUNCIL ANNOUNCEMENT", title: "Media Division Recruitment Drive", desc: "Select roles are opening across our graphic layout design squads, report writers, and official coverage crews." }
+            { icon: Camera, tag: "PHOTOGRAPHY", title: "Spectrum Tech Fest 2026 Visuals", desc: "A premium feature story crafted to reflect the pulse of campus innovation and news culture." },
+            { icon: BookOpen, tag: "EDITORIAL", title: "Student Innovation Profile: Smart Campus", desc: "A premium feature story crafted to reflect the pulse of campus innovation and news culture." },
+            { icon: Trophy, tag: "CAMPUS NEWS", title: "Club Broadcast: Recruitment Drive", desc: "A premium feature story crafted to reflect the pulse of campus innovation and news culture." }
           ].map((item, idx) => (
-            <div key={idx} className="relative group/card rounded-2xl p-[1px] bg-stone-900 border border-stone-800/60 hover:border-amber-500/30 transition-all duration-300 bg-stone-950/20 backdrop-blur-sm flex flex-col justify-between h-64 p-6 shadow-2xl">
+            <div key={idx} className="group/card rounded-2xl border border-stone-900/80 hover:border-amber-500/30 transition-all duration-300 bg-stone-950/20 backdrop-blur-sm flex flex-col justify-between h-64 p-6 shadow-2xl">
               <div className="space-y-4">
-                <div className="w-9 h-9 rounded-xl bg-red-950/30 border border-amber-500/20 flex items-center justify-center shadow-inner group-hover/card:bg-red-900/40 transition duration-300">
+                <div className="w-8 h-8 rounded-xl bg-red-950/30 border border-amber-500/20 flex items-center justify-center transition group-hover/card:bg-red-900/30">
                   <item.icon className="w-4 h-4 text-amber-500" />
                 </div>
                 <div className="space-y-1">
                   <span className="text-[9px] font-black text-amber-400 tracking-widest block uppercase">{item.tag}</span>
-                  <h3 className="text-base font-extrabold text-white uppercase tracking-tight">{item.title}</h3>
+                  <h3 className="text-base font-black text-white uppercase tracking-tight leading-snug">{item.title}</h3>
                 </div>
                 <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans">{item.desc}</p>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t border-stone-900 text-[10px] font-black tracking-wider text-stone-500">
-                <span>SPEC ARCHIVE REPLICA</span>
-                <span className="text-amber-500 group-hover/card:text-amber-400 cursor-pointer transition duration-300">ACCESS BULLETIN &rarr;</span>
+              <div className="flex items-center justify-between pt-4 border-t border-stone-900/60 text-[10px] font-black text-stone-500">
+                <span>2 HOURS AGO</span>
+                <span className="text-amber-500 group-hover/card:text-amber-400 cursor-pointer transition">Read more &rarr;</span>
               </div>
             </div>
           ))}
         </div>
       </motion.section>
 
-      {/* LEADERSHIP MATRIX SECTION */}
+      {/* 6. SYSTEM LEADERSHIP MATRIX SQUAD */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
-        className="max-w-6xl mx-auto px-6 space-y-8 relative z-10 mt-36"
+        className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36"
       >
-        <div className="text-center md:text-left space-y-1">
-          <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">OFFICERS COUNCIL</span>
-          <h2 className="text-3xl font-black text-white uppercase tracking-tight">Leadership at the Helm</h2>
+        <div className="space-y-1">
+          <span className="text-[10px] font-black text-amber-500 tracking-[0.25em] uppercase block">OPERATIONAL BOARD</span>
+          <h2 className="text-2xl font-black text-white uppercase tracking-tight">Leadership at the Helm</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { role: "CREATIVE DIRECTOR — PRESIDENT", name: "G. Vishwanadh", imageKey: "president" },
-            { role: "OPERATIONS LEAD — SECRETARY", name: "B. Rishikesh", imageKey: "secretary" },
-            { role: "BRAND ARCHITECT — ADMINISTRATOR", name: "B. Sri Vardhan", imageKey: "admin" }
+            { role: "CREATIVE DIRECTOR", name: "G. Vishwanadh", desc: "Leading editorial strategy, cinematic identity, and cross-channel leadership for the club." },
+            { role: "OPERATIONS LEAD", name: "B. Rishikesh", desc: "Managing field coverage, production logistics, and campus media operations." },
+            { role: "BRAND ARCHITECT", name: "B. Sri Vardhan", desc: "Crafting the brand language, campaign visuals, and premium media presentation." }
           ].map((lead, idx) => (
-            <div key={idx} className="bg-stone-950/40 backdrop-blur-sm border border-stone-900 p-5 rounded-2xl space-y-4 hover:border-stone-800 transition duration-300 shadow-2xl">
-              <div className="relative aspect-[4/5] bg-stone-950 rounded-xl overflow-hidden border border-stone-900/80 flex flex-col items-center justify-center p-4 text-center group/member">
-                <img 
-                  src={`/team/${lead.imageKey}.jpg`} 
-                  alt={lead.name} 
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity scale-100 group-hover/member:scale-105 group-hover/member:opacity-60 transition duration-500" 
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }} 
-                />
-                <ShieldAlert className="w-5 h-5 text-stone-700 mb-2 relative z-10 group-hover/member:text-stone-500 transition" />
-                <span className="text-[9px] font-black tracking-widest text-stone-600 group-hover/member:text-stone-400 transition uppercase relative z-10">PENDING PRESS PHOTOGRAPHY</span>
+            <div key={idx} className="bg-stone-950/30 backdrop-blur-sm border border-stone-900 p-6 rounded-2xl flex flex-col justify-between h-56 hover:border-stone-800 transition">
+              <div className="space-y-3">
+                <div>
+                  <span className="text-[9px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight mt-0.5">{lead.name}</h3>
+                </div>
+                <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans font-medium">{lead.desc}</p>
               </div>
-              <div className="space-y-0.5">
-                <span className="text-[9px] font-black text-amber-500 tracking-widest block uppercase">{lead.role}</span>
-                <h3 className="text-lg font-black text-white uppercase tracking-tight">{lead.name}</h3>
+              
+              <div className="pt-4 border-t border-stone-900/60 flex items-center space-x-2 text-stone-600">
+                <ShieldAlert className="w-3.5 h-3.5" />
+                <span className="text-[9px] font-black tracking-widest uppercase">Verified Officer Credentials</span>
               </div>
             </div>
           ))}
