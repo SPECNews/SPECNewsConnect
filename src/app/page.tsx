@@ -66,7 +66,7 @@ export default function HomePage() {
           <img 
             src="/logo.png" 
             alt="SPEC Background Canvas Logo" 
-            className="w-[85vw] h-[85vw] sm:w-[68vw] sm:h-[68vw] object-contain opacity-[0.12] select-none pointer-events-none filter drop-shadow-2xl"
+            className="w-[85vw] h-[85vw] sm:w-[68vw] sm:h-[68vw] object-contain opacity-[0.14] select-none pointer-events-none filter drop-shadow-2xl"
           />
         </motion.div>
       </div>
@@ -79,38 +79,7 @@ export default function HomePage() {
         <div className="cursor-glow" />
       </motion.div>
 
-      {/* SINGLE UNIFIED FLOATING NAVIGATION BAR */}
-      <nav className="fixed top-5 left-0 right-0 z-50 max-w-5xl mx-auto px-4 lg:px-0">
-        <div className="premium-card rounded-full px-6 py-3.5 flex items-center justify-between bg-black/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-9 h-9 rounded-full bg-stone-950 border border-amber-500/20 flex items-center justify-center p-1.5 transition-all group-hover:border-amber-500/50">
-              <img 
-                src="/logo.png" 
-                alt="SPEC Logo" 
-                className="w-full h-full object-contain rounded-full" 
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xs font-black tracking-wider text-white uppercase">SPEC NEWS</span>
-              <span className="text-[9px] font-bold text-amber-500 tracking-[0.2em] uppercase">CONNECT</span>
-            </div>
-          </Link>
-
-          <div className="flex items-center space-x-1">
-            {['Home', 'Articles', 'Gallery', 'Team', 'Contact'].map((item, idx) => (
-              <Link 
-                key={idx} 
-                href="#" 
-                className={`px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-xl transition ${idx === 0 ? 'text-amber-400 bg-red-950/40 border border-amber-500/20' : 'text-stone-400 hover:text-white'}`}
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </nav>
-
-      {/* Primary Centered Hero Module */}
+      {/* Primary Centered Hero Module (NO EXTRA NAVBAR CONTAINER) */}
       <section className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center justify-center min-h-[92vh] relative z-10 pt-36">
         <motion.div 
           initial="hidden"
