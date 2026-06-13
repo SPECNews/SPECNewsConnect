@@ -1,22 +1,18 @@
-import './globals.css'; // Ensure your Tailwind CSS is imported here
+﻿import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'SPEC News - Media & Communications Club',
-  description: 'The Official Media & Communications Club',
+  title: 'SPEC News Connect',
+  description: 'Premium Campus Media Network Platform',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
+      <body className="bg-[#030303] min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow pt-28">{children}</main>
         <Footer />
       </body>
     </html>

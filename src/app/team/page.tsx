@@ -1,38 +1,46 @@
+﻿'use client';
+import { Layers, Camera, Video } from 'lucide-react';
+
 export default function TeamPage() {
-  const departments = [
-    'Editorial Team', 'Content Writing Team', 'Photography Team', 'Design Team', 'Social Media Team'
-  ];
-
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 space-y-16">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Our Core Board</h1>
-        <p className="text-slate-500 mt-2">The architecture driving media, communication, and storytelling across campus.</p>
+    <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+      <div className="text-center space-y-2">
+        <span className="text-[10px] font-black text-blue-500 tracking-widest uppercase">HUMAN ASSET METRIC</span>
+        <h1 className="text-4xl sm:text-5xl font-black text-white uppercase tracking-tighter">Core Administration Matrix</h1>
       </div>
 
-      {/* Hierarchy Trees */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">President</p>
-          <h3 className="text-xl font-bold mt-1 text-slate-800">SPEC NEWS</h3>
-        </div>
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm ring-2 ring-blue-500">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">Secretary</p>
-          <h3 className="text-xl font-bold mt-1 text-slate-800">Vishwanadh Rishi</h3>
-        </div>
-        <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-widest">Admin</p>
-          <h3 className="text-xl font-bold mt-1 text-slate-800">Vardhan</h3>
-        </div>
+      {/* Strict Core Leaders Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-b border-zinc-900 pb-16">
+        {[
+          { title: "President", name: "G. Vishwanadh", role: "CREATIVE DIRECTOR" },
+          { title: "Secretary", name: "B. Rishikesh", role: "OPERATIONS LEAD" },
+          { title: "Club Admin", name: "B. Sri Vardhan", role: "BRAND ARCHITECT" }
+        ].map((lead, i) => (
+          <div key={i} className="cyber-panel p-8 rounded-2xl text-center space-y-2">
+            <span className="text-[9px] font-black text-blue-500 tracking-widest block">{lead.role}</span>
+            <h3 className="text-2xl font-black text-white uppercase tracking-tight">{lead.name}</h3>
+            <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">{lead.title}</span>
+          </div>
+        ))}
       </div>
 
-      {/* Departments */}
+      {/* Operations Matrix Subdivisions */}
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-center tracking-tight">Club Wings</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {departments.map((dept, idx) => (
-            <div key={idx} className="bg-slate-100 p-4 rounded-lg text-center font-medium text-sm text-slate-700 hover:bg-slate-200 transition">
-              {dept}
+        <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Sub-Sector Formations</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { name: "Editorial Team", icon: Layers, desc: "Processing system updates, interviews, and feature narratives." },
+            { name: "Photography Unit", icon: Camera, desc: "Capturing telemetry assets and visuals across high-impact events." },
+            { name: "Production Crew", icon: Video, desc: "Fusing video feeds, cinematic design, and creative editing streams." }
+          ].map((t, idx) => (
+            <div key={idx} className="cyber-panel p-6 rounded-xl space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-zinc-950 border border-zinc-900 flex items-center justify-center">
+                <t.icon className="w-4 h-4 text-blue-500" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black text-white tracking-wide uppercase mb-1">{t.name}</h3>
+                <p className="text-zinc-500 text-xs normal-case leading-relaxed">{t.desc}</p>
+              </div>
             </div>
           ))}
         </div>

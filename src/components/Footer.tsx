@@ -1,13 +1,12 @@
-export default function Footer() {
+﻿export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-400 py-8 mt-auto border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 text-center space-y-2">
-        <p className="text-white font-semibold">SPEC News &copy; {new Date().getFullYear()}</p>
-        <p className="text-sm">The Official Media & Communications Club</p>
-        <div className="flex justify-center space-x-6 pt-2">
-          <a href="#" className="hover:text-blue-400">Instagram</a>
-          <a href="mailto:specnews@college.edu" className="hover:text-blue-400">Email</a>
+    <footer className="bg-black border-t border-zinc-900 py-12 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center space-x-3">
+          <img src="/logo.png" alt="" className="w-5 h-5 object-contain opacity-30" />
+          <span className="text-zinc-500 text-xs font-black uppercase tracking-widest">SPEC News Connect</span>
         </div>
+        <p>&copy; 2026 SPEC NEWS CONNECT. ALL RIGHTS RESERVED.</p>
       </div>
     </footer>
   );

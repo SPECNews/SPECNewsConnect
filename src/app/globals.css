@@ -1,35 +1,36 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+@layer base {
+  body {
+    @apply bg-[#030303] text-zinc-100 antialiased selection:bg-blue-500/30 overflow-x-hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
 }
 
-body {
-  background-color: #050506;
-  color: #F5F5F7;
-  overflow-x: hidden;
-  font-family: var(--font-sans);
+.glow-line {
+  position: relative;
+}
+.glow-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2563eb, transparent);
 }
 
-/* Custom premium tech scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #050506;
-}
-::-webkit-scrollbar-thumb {
-  background: #1a1a1e;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #e11d48; /* Crimson hover highlight */
+.cyber-panel {
+  background: rgba(8, 8, 12, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
 }
 
-/* Clean text selection highlight */
-::selection {
-  background-color: #e11d48;
-  color: #ffffff;
+.cyber-panel:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.15);
 }
