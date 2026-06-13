@@ -1,113 +1,55 @@
 "use client";
+import { useState } from 'react';
 
-import { useState } from "react";
-
-export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
-  };
+export default function Contact() {
+  const [sent, setSent] = useState(false);
 
   return (
-    <div className="space-y-16 pb-24">
-      <section className="relative overflow-hidden bg-[#04050a] px-6 py-20 sm:px-10 lg:px-16">
-        <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(59,130,246,0.18),_transparent_26%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.14),_transparent_24%)] opacity-80" />
-        <div className="relative mx-auto max-w-7xl text-center">
-          <p className="text-sm uppercase tracking-[0.45em] text-blue-400">Contact</p>
-          <h1 className="mt-4 text-5xl font-black tracking-tight text-white sm:text-6xl">A pristine communication interface for campus collaboration.</h1>
-          <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-300">
-            Send a secure message to SPEC News Connect, or use our offline contact details for direct communication.
-          </p>
-        </div>
-      </section>
+    <div className="max-w-4xl mx-auto px-6 py-12 space-y-12">
+      <div>
+        <span className="text-[10px] font-black text-blue-500 tracking-widest uppercase">COMMS PORTAL</span>
+        <h1 className="text-3xl sm:text-5xl font-black text-white uppercase mt-1">Connect Node</h1>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.9fr]">
-          <div className="rounded-[2rem] border border-white/10 bg-[#07070f]/90 p-10 shadow-[0_40px_90px_-70px_rgba(0,0,0,0.85)]">
-            <h2 className="text-3xl font-black text-white">Send us a message</h2>
-            <p className="mt-4 text-sm text-slate-300 leading-7">
-              Fill out the form below and our team will respond to your request as quickly as possible.
-            </p>
-            <form onSubmit={handleSubmit} className="mt-10 space-y-6">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <label className="block text-sm text-slate-300">
-                  <span className="mb-2 block uppercase tracking-[0.25em] text-slate-500">Name</span>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your full name"
-                    className="w-full rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                    required
-                  />
-                </label>
-                <label className="block text-sm text-slate-300">
-                  <span className="mb-2 block uppercase tracking-[0.25em] text-slate-500">Email</span>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="you@example.com"
-                    className="w-full rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                    required
-                  />
-                </label>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div className="md:col-span-7 glass-panel p-6 sm:p-8 rounded-2xl border border-zinc-900">
+          {!sent ? (
+            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-4">
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Identity Parameter</label>
+                <input required type="text" placeholder="NAME" className="w-full bg-zinc-950 border border-zinc-900 rounded-xl px-4 py-3 text-xs font-semibold tracking-wider text-white uppercase focus:outline-none focus:border-blue-600 transition placeholder-zinc-800" />
               </div>
-              <label className="block text-sm text-slate-300">
-                <span className="mb-2 block uppercase tracking-[0.25em] text-slate-500">Message</span>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={6}
-                  placeholder="Tell us what you need..."
-                  className="w-full rounded-[1.75rem] border border-white/10 bg-white/5 px-5 py-4 text-sm text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                  required
-                />
-              </label>
-              <button type="submit" className="inline-flex items-center justify-center rounded-full bg-blue-500 px-8 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400">
-                Send Message
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Digital Terminal Address</label>
+                <input required type="email" placeholder="EMAIL" className="w-full bg-zinc-950 border border-zinc-900 rounded-xl px-4 py-3 text-xs font-semibold tracking-wider text-white uppercase focus:outline-none focus:border-blue-600 transition placeholder-zinc-800" />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase tracking-widest text-zinc-500">Transmission Text</label>
+                <textarea required rows={4} placeholder="YOUR MESSAGE INQUIRY PARAMETERS..." className="w-full bg-zinc-950 border border-zinc-900 rounded-xl px-4 py-3 text-xs font-semibold tracking-wider text-white uppercase focus:outline-none focus:border-blue-600 transition resize-none placeholder-zinc-800" />
+              </div>
+              <button type="submit" className="w-full bg-blue-600 text-white font-black py-4 rounded-xl text-[10px] tracking-widest uppercase hover:bg-blue-500 transition shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                Dispatch Matrix Data
               </button>
-              {submitted ? (
-                <p className="mt-4 text-sm text-emerald-300">Thank you! Your message has been sent successfully.</p>
-              ) : null}
             </form>
-          </div>
+          ) : (
+            <div className="text-center py-12 space-y-2">
+              <h3 className="text-lg font-black text-white uppercase">Data Transmitted</h3>
+              <p className="text-zinc-500 text-xs normal-case">Operational vectors logged inside the SPEC News registry core.</p>
+            </div>
+          )}
+        </div>
 
-          <div className="space-y-6 rounded-[2rem] border border-white/10 bg-[#07070f]/90 p-10 shadow-[0_40px_90px_-70px_rgba(0,0,0,0.85)]">
-            <h2 className="text-3xl font-black text-white">Offline Contact</h2>
-            <div className="space-y-5 text-sm leading-7 text-slate-300">
-              <div>
-                <p className="font-semibold text-slate-100">Email</p>
-                <p>specnews@college.edu</p>
-              </div>
-              <div>
-                <p className="font-semibold text-slate-100">Office</p>
-                <p>Media Hub Desk, Main Block, St. Peter’s Engineering College</p>
-              </div>
-              <div>
-                <p className="font-semibold text-slate-100">Phone</p>
-                <p>+91 98765 43210</p>
-              </div>
-            </div>
-            <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-              <p className="text-sm uppercase tracking-[0.35em] text-blue-400">Consultation Hours</p>
-              <p className="mt-3 text-sm text-slate-300 leading-7">Monday to Friday · 10:00 AM - 6:00 PM</p>
-            </div>
+        <div className="md:col-span-5 space-y-6 text-[10px] font-bold uppercase tracking-widest text-zinc-500 pt-2">
+          <div className="space-y-1">
+            <span className="text-zinc-700 font-black">MEDIA DESK HUB</span>
+            <p className="text-xs font-bold text-white normal-case tracking-normal">Main Block, St. Peter's Engineering College, Hyderabad, Telangana</p>
+          </div>
+          <div className="space-y-1">
+            <span className="text-zinc-700 font-black">NET ROOT ADDRESS</span>
+            <p className="text-xs font-bold text-blue-400 tracking-wide lowercase">specnews@college.edu</p>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

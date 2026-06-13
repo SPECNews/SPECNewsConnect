@@ -1,3 +1,16 @@
+export default function Footer() {
+  return (
+    <footer className="bg-[#020204] border-t border-zinc-900/60 py-12 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center space-x-3 normal-case tracking-normal text-left">
+          <img src="/logo.png" alt="" className="w-5 h-5 object-contain opacity-40" />
+          <span className="text-zinc-500 font-bold text-xs uppercase tracking-widest">SPEC News Connect</span>
+        </div>
+        <p>&copy; 2026 SPEC NEWS CONNECT. ST. PETER'S ENGINEERING COLLEGE.</p>
+      </div>
+    </footer>
+  );
+}
 import Link from "next/link";
 
 const navLinks = [

@@ -1,129 +1,121 @@
 "use client";
-
-import AnimatedCounter from "@/components/AnimatedCounter";
-import { motion } from "framer-motion";
-
-const metrics = [
-  { value: 78, suffix: "%", label: "Engagement" },
-  { value: 120, suffix: "+", label: "Published Stories" },
-  { value: 16, suffix: "K+", label: "Social Reach" },
-  { value: 42, suffix: "+", label: "Campus Events" },
-];
-
-const highlights = [
-  { title: "Spectrum Tech Fest 2026 Visuals", category: "Photography", time: "2 hours ago" },
-  { title: "Student Innovation Profile: Smart Campus", category: "Editorial", time: "Yesterday" },
-  { title: "Club Broadcast: Recruitment Drive", category: "Campus News", time: "2 days ago" },
-];
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ArrowRight, Camera, Film, Newspaper, Radio } from 'lucide-react';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export default function HomePage() {
   return (
-    <div className="space-y-24 pb-24">
-      <section className="relative overflow-hidden bg-[#04050a] px-6 py-20 sm:px-10 lg:px-16">
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.2),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.16),_transparent_30%)]" />
-        <div className="relative mx-auto max-w-7xl">
-          <div className="grid gap-12 lg:grid-cols-[1.25fr_0.9fr] items-center">
-            <div className="space-y-8">
-              <p className="text-sm uppercase tracking-[0.45em] text-blue-400">Official Media Platform</p>
-              <h1 className="text-5xl font-black leading-tight tracking-tight text-white sm:text-6xl">
-                SPEC News Connect — cinematic campus narratives, engineered for premium audiences.
-              </h1>
-              <p className="max-w-2xl text-lg text-slate-300">
-                Experience campus journalism with a dark cinematic interface, immersive editorial flows, and premium story presentation for St. Peter’s Engineering College.
-              </p>
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <a href="/articles" className="inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400">
-                  Explore Articles
-                </a>
-                <a href="/gallery" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-100 transition hover:border-blue-500/30 hover:text-white">
-                  View Gallery
-                </a>
-              </div>
-            </div>
+    <div className="pb-24 space-y-32">
+      {/* Cinematic Hero */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 pt-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-7 space-y-6">
+          <span className="text-xs font-black tracking-[0.3em] uppercase text-blue-500 block">OFFICIAL MEDIA PLATFORM</span>
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase leading-[1.05]">
+            SPEC News Connect — <br />
+            <span className="text-zinc-500">cinematic campus narratives, engineered for premium audiences.</span>
+          </h1>
+          <p className="text-zinc-400 text-sm max-w-xl normal-case leading-relaxed">
+            Experience campus journalism with a dark cinematic interface, immersive editorial flows, and premium story presentation for St. Peter's Engineering College.
+          </p>
+          <div className="flex flex-wrap gap-4 pt-2">
+            <Link href="/articles" className="px-6 py-3.5 bg-blue-600 shadow-[0_0_20px_rgba(59,130,246,0.4)] text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-blue-500 transition flex items-center space-x-2 group">
+              <span>Explore Articles</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link href="/gallery" className="px-6 py-3.5 bg-zinc-950 border border-zinc-900 text-zinc-300 font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-zinc-900 transition">
+              View Gallery
+            </Link>
+          </div>
+        </div>
 
-            <div className="relative rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-[0_60px_120px_-70px_rgba(0,0,0,0.8)] backdrop-blur-xl">
-              <div className="absolute inset-x-6 top-6 h-56 rounded-[1.75rem] bg-[radial-gradient(circle,_rgba(59,130,246,0.25),_transparent_60%)] blur-3xl" />
-              <div className="relative space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 rounded-3xl bg-[#0f172a] p-3 shadow-[0_20px_80px_-50px_rgba(59,130,246,0.55)]">
-                    <img src="/logo.png" alt="SPEC News Connect" className="h-full w-full object-contain" />
-                  </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.35em] text-slate-400">Award-Winning Design</p>
-                    <p className="text-2xl font-black text-white">Cinematic Media Hub</p>
-                  </div>
-                </div>
-                <p className="text-sm leading-7 text-slate-300">
-                  A fluid editorial environment layered with animated metrics, premium cards, and cinematic visual storytelling.
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {metrics.map((metric) => (
-                    <div key={metric.label} className="glass-panel p-5 rounded-3xl">
-                      <AnimatedCounter value={metric.value} suffix={metric.suffix} label={metric.label} />
-                    </div>
-                  ))}
-                </div>
+        {/* Dashboard Metric Grid Panel */}
+        <div className="lg:col-span-5 glass-panel p-8 rounded-3xl border border-zinc-900/80 high-tech-glow space-y-6">
+          <div className="flex items-center space-x-3 pb-4 border-b border-zinc-900/60">
+            <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
+            <span className="text-[10px] font-black tracking-widest uppercase text-zinc-400">Cinematic Media Hub Stats</span>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { val: 78, suf: "%", label: "ENGAGEMENT" },
+              { val: 120, suf: "+", label: "PUBLISHED STORIES" },
+              { val: 16, suf: "K+", label: "SOCIAL REACH" },
+              { val: 42, suf: "+", label: "CAMPUS EVENTS" }
+            ].map((stat, i) => (
+              <div key={i} className="bg-zinc-950/60 border border-zinc-900/50 p-5 rounded-2xl">
+                <AnimatedCounter value={stat.val} suffix={stat.suf} />
+                <span className="text-[9px] font-black tracking-widest text-zinc-500 mt-2 block">{stat.label}</span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      {/* Highlights Feed Grid */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-blue-400">Highlights Feed</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-white">Latest Campus Narratives</h2>
+            <span className="text-[10px] font-black text-blue-500 tracking-[0.25em] uppercase">HIGHLIGHTS FEED</span>
+            <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mt-1">Latest Campus Narratives</h2>
           </div>
-          <p className="max-w-xl text-sm text-slate-400">
+          <p className="text-zinc-500 text-xs max-w-xs normal-case leading-relaxed">
             Discover the newest campus dispatches, editorial celebrations, and operational highlights from SPEC News Connect.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          {highlights.map((item) => (
-            <motion.article key={item.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="glass-panel rounded-[2rem] p-8">
-              <p className="text-xs uppercase tracking-[0.35em] text-blue-400">{item.category}</p>
-              <h3 className="mt-4 text-2xl font-bold text-white">{item.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">A premium feature story crafted to reflect the pulse of campus innovation and news culture.</p>
-              <div className="mt-6 flex items-center justify-between text-sm text-slate-400">
-                <span>{item.time}</span>
-                <a href="/articles" className="font-semibold text-blue-300 hover:text-white">Read more →</a>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { icon: Camera, tag: "PHOTOGRAPHY", title: "Spectrum Tech Fest 2026 Visuals", time: "2 hours ago" },
+            { icon: Newspaper, tag: "EDITORIAL", title: "Student Innovation Profile: Smart Campus", time: "Yesterday" },
+            { icon: Radio, tag: "CAMPUS NEWS", title: "Club Broadcast: Recruitment Drive", time: "2 days ago" }
+          ].map((item, i) => (
+            <div key={i} className="glass-panel glass-panel-hover p-6 rounded-2xl border border-zinc-900 transition-all duration-300 flex flex-col justify-between space-y-6 group">
+              <div className="space-y-4">
+                <item.icon className="w-5 h-5 text-blue-500" />
+                <div>
+                  <span className="text-[9px] font-black text-blue-400 tracking-widest block mb-1">{item.tag}</span>
+                  <h3 className="text-lg font-bold text-white uppercase tracking-tight group-hover:text-blue-400 transition duration-300">{item.title}</h3>
+                </div>
+                <p className="text-zinc-500 text-xs normal-case leading-relaxed">
+                  A premium feature story crafted to reflect the pulse of campus innovation and news culture.
+                </p>
               </div>
-            </motion.article>
+              <div className="flex items-center justify-between pt-4 border-t border-zinc-900 text-[10px] font-bold text-zinc-500">
+                <span>{item.time}</span>
+                <span className="text-white group-hover:underline cursor-pointer">Read more &rarr;</span>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="rounded-[2rem] border border-white/10 bg-[#07070f]/80 p-10 shadow-[0_40px_120px_-70px_rgba(0,0,0,0.85)]">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.35em] text-blue-400">Operational Board</p>
-              <h2 className="mt-4 text-4xl font-black text-white">Leadership at the Helm</h2>
+      {/* Leadership Section */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
+        <div>
+          <span className="text-[10px] font-black text-blue-500 tracking-[0.25em] uppercase">OPERATIONAL BOARD</span>
+          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mt-1">Leadership at the Helm</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { role: "CREATIVE DIRECTOR", title: "President", name: "G. Vishwanadh", pfp: "/team/president.jpg", desc: "Leading editorial strategy, cinematic identity, and cross-channel leadership for the club." },
+            { role: "OPERATIONS LEAD", title: "Secretary", name: "B. Rishikesh", pfp: "/team/secretary.jpg", desc: "Managing field coverage, production logistics, and campus media operations." },
+            { role: "BRAND ARCHITECT", title: "Club Admin", name: "B. Sri Vardhan", pfp: "/team/admin.jpg", desc: "Designing visual language, digital branding, and premium media presentation." }
+          ].map((lead, idx) => (
+            <div key={idx} className="glass-panel p-6 rounded-2xl border border-zinc-900 space-y-6 flex flex-col justify-between">
+              <div className="space-y-4">
+                {/* Photo container box */}
+                <div className="relative aspect-[4/5] bg-zinc-950 rounded-xl overflow-hidden border border-zinc-900 flex items-center justify-center group">
+                  <img src={lead.pfp} alt={lead.name} className="w-full h-full object-cover opacity-60 group-hover:opacity-90 group-hover:scale-102 transition duration-500" onError={(e)=>{e.currentTarget.style.display='none'}} />
+                  <span className="absolute text-[10px] font-bold tracking-widest text-zinc-700 uppercase group-hover:text-zinc-500 transition">PHOTO ARCHIVE</span>
+                </div>
+                <div>
+                  <span className="text-[9px] font-black text-blue-500 tracking-widest block uppercase">{lead.role} — {lead.title}</span>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tight mt-1">{lead.name}</h3>
+                </div>
+                <p className="text-zinc-500 text-xs normal-case leading-relaxed">{lead.desc}</p>
+              </div>
             </div>
-            <p className="max-w-2xl text-sm text-slate-400">
-              Our editorial governance model and event operations deliver strategic coverage with premium branding, campus reach, and digital storytelling precision.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="glass-panel rounded-[1.75rem] p-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-blue-400">Creative Director</p>
-              <h3 className="mt-4 text-2xl font-bold text-white">G. Vishwanadh</h3>
-              <p className="mt-3 text-sm text-slate-300 leading-7">Leading editorial strategy, cinematic identity, and long-form media direction for the club.</p>
-            </div>
-            <div className="glass-panel rounded-[1.75rem] p-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-blue-400">Operations Lead</p>
-              <h3 className="mt-4 text-2xl font-bold text-white">B. Rishikesh</h3>
-              <p className="mt-3 text-sm text-slate-300 leading-7">Managing production schedules, field coverage logistics, and editorial operations.</p>
-            </div>
-            <div className="glass-panel rounded-[1.75rem] p-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-blue-400">Brand Architect</p>
-              <h3 className="mt-4 text-2xl font-bold text-white">B. Sri Vardhan</h3>
-              <p className="mt-3 text-sm text-slate-300 leading-7">Crafting the brand language, campaign visuals, and premium club identity.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>
