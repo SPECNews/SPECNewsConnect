@@ -7,6 +7,13 @@ import {
   ChevronDown, Flame, Terminal, Cpu, Award, Globe, Radio, ShieldAlert 
 } from "lucide-react";
 
+interface NavItem {
+  name: string;
+  short: string;
+  icon: React.ReactNode;
+  current?: boolean;
+}
+
 export default function SpecNewsConnectPremium() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -29,8 +36,8 @@ export default function SpecNewsConnectPremium() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30 });
 
   // Custom multi-club identity matrix nodes
-  const navigationCategories = {
-    departments: [
+  const navigationCategories: Record<string, NavItem[]> = {
+    Home: [
       { name: "Computer Science (AI & ML)", short: "CSE-AIML", icon: <Cpu size={14} /> },
       { name: "Information Technology", short: "IT", icon: <Terminal size={14} /> },
       { name: "Electronics & Communication", short: "ECE", icon: <Radio size={14} /> }
