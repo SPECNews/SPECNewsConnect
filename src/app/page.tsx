@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Trophy, BookOpen, Camera, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Navbar from '@/components/Navbar';
 
 const revealVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -10,16 +11,15 @@ const revealVariant = {
 };
 
 export default function HomePage() {
+  const [activeTab, setActiveTab] = useState('Home');
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // High-performance spring vectors for cursor spotlight tracking
   const lightX = useSpring(mouseX, { stiffness: 150, damping: 25 });
   const lightY = useSpring(mouseY, { stiffness: 150, damping: 25 });
 
-  // Parallax vectors for the dynamic background watermark logo
   const x = useTransform(mouseX, [0, windowSize.width], [-40, 40]);
   const y = useTransform(mouseY, [0, windowSize.height], [-30, 30]);
 
@@ -28,11 +28,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-
-    const handleResize = () => {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
-    };
-
+    const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -40,7 +36,6 @@ export default function HomePage() {
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
-
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -50,9 +45,8 @@ export default function HomePage() {
   return (
     <div className="pb-32 relative overflow-hidden min-h-screen bg-[#020001] text-white">
       
-      {/* 1. LIGHT UNDER CURSOR & BACKGROUND PARALLAX EMBLEM */}
+      {/* 1. DYNAMIC BACKGROUND CONTEXT */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        {/* Dynamic Under-Cursor Spotlight */}
         <motion.div 
           className="fixed inset-0 mix-blend-screen opacity-70 hidden lg:block"
           style={{
@@ -62,30 +56,24 @@ export default function HomePage() {
             )
           }}
         />
-
-        {/* Ambient Crimson Background Gradients */}
         <div className="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-red-950/15 blur-[140px]" />
         <div className="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-amber-950/5 blur-[160px]" />
         
-        {/* Dynamic Watermark Logo Backdrop */}
-        <motion.div 
-          style={{ x: smoothX, y: smoothY }}
-          className="fixed inset-0 flex items-center justify-center z-0"
-        >
+        <motion.div style={{ x: smoothX, y: smoothY }} className="fixed inset-0 flex items-center justify-center z-0">
           <img 
             src="/logo.png" 
-            alt="SPEC Dynamic Canvas Logo" 
+            alt="Watermark backdrop" 
             className="w-[90vw] h-[90vw] sm:w-[75vw] sm:h-[75vw] object-contain opacity-[0.12] filter drop-shadow-[0_0_100px_rgba(185,28,28,0.08)]"
           />
         </motion.div>
       </div>
 
-      {/* 2. HERO SECTION */}
-      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-32 pb-12 gap-12">
-        <motion.div 
-          initial="hidden" animate="visible" variants={revealVariant}
-          className="space-y-8 max-w-2xl"
-        >
+      {/* 2. COMPACT ATTACHED NAVBAR RENDER */}
+      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      {/* 3. HERO CONTENT WRAPPER */}
+      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-24 pb-12 gap-12">
+        <motion.div initial="hidden" animate="visible" variants={revealVariant} className="space-y-8 max-w-2xl">
           <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/60 to-stone-900/40 border border-amber-500/30 px-4 py-1.5 rounded-full shadow-lg">
             <Trophy className="w-3.5 h-3.5 text-amber-500" />
             <span className="text-[10px] font-black tracking-widest uppercase text-amber-400">The Voice of St. Peter's</span>
@@ -116,26 +104,27 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        {/* LARGE TRUE-CENTER LOGO EMBLEM */}
+        {/* CENTRAL EMBLEM DESIGN - DYNAMIC NEON AURA MATCHED STYLE */}
         <motion.div 
           initial="hidden" animate="visible" variants={revealVariant}
           whileHover={{ scale: 1.03 }}
           className="relative group/emblem cursor-pointer flex-shrink-0"
         >
-          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-amber-500 via-red-600 to-yellow-500 opacity-25 blur-2xl group-hover/emblem:opacity-45 transition duration-700 animate-pulse" />
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500/50 to-red-600/50 opacity-100 blur-md group-hover/emblem:scale-105 transition duration-500" />
+          {/* Cyan to Magenta Neon Blur Backdrop Gradient Circle */}
+          <div className="absolute inset-[-10px] rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-500 to-fuchsia-500 opacity-40 animate-neon-aura" />
           
-          <div className="w-60 h-60 sm:w-72 sm:h-72 rounded-full bg-black border border-amber-500/50 flex items-center justify-center p-0 relative shadow-[0_0_60px_rgba(0,0,0,0.9)] overflow-hidden">
+          {/* Main Internal Graphic Container Shield */}
+          <div className="w-60 h-60 sm:w-72 sm:h-72 rounded-full bg-black border border-stone-800/60 flex items-center justify-center p-0 relative shadow-[0_0_50px_rgba(0,0,0,0.95)] overflow-hidden z-10">
             <img 
               src="/logo.png" 
-              alt="SPEC Full-Scale Clear Emblem" 
+              alt="SPEC Central Emblem" 
               className="w-full h-full object-cover scale-105 filter brightness-110 contrast-105 transition-transform duration-500 group-hover/emblem:scale-110" 
             />
           </div>
         </motion.div>
       </section>
 
-      {/* 3. OPERATIONAL COUNCIL TEAM (MOVED HERE DIRECTLY UNDER THE HERO SECTION) */}
+      {/* 4. LEADERSHIP TEAM REGION */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-12"
@@ -159,7 +148,6 @@ export default function HomePage() {
                 </div>
                 <p className="text-stone-400 text-xs normal-case leading-relaxed font-sans font-medium">{lead.desc}</p>
               </div>
-              
               <div className="pt-4 border-t border-stone-900/60 flex items-center space-x-2 text-stone-600">
                 <ShieldAlert className="w-3.5 h-3.5" />
                 <span className="text-[9px] font-black tracking-widest uppercase">Verified Council Member</span>
@@ -169,7 +157,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* 4. HIGHLIGHTS CHRONICLES FEED */}
+      {/* 5. HIGHLIGHTS FEED */}
       <motion.section 
         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={revealVariant} 
         className="max-w-6xl mx-auto px-6 space-y-6 relative z-10 mt-36"
