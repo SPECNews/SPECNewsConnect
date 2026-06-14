@@ -4,19 +4,26 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebaseConfig";
+
 export default function AdminLogin() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = async () => {
+    setError("");
+    setLoading(true);
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin/dashboard");
     } catch (err) {
       setError("Invalid credentials");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,9 +56,10 @@ export default function AdminLogin() {
 
         <button
           onClick={login}
-          className="w-full bg-amber-500 text-black font-bold py-3"
+          disabled={loading}
+          className="w-full bg-amber-500 text-black font-bold py-3 disabled:opacity-50"
         >
-          LOGIN
+          {loading ? "LOGGING IN..." : "LOGIN"}
         </button>
 
       </div>

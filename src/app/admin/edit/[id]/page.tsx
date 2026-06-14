@@ -4,6 +4,16 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getArticles, updateArticle } from "@/lib/articles/articleService";
 
+type Article = {
+  id: string;
+  title?: string;
+  cat?: string;
+  content?: string;
+  image?: string;
+  date?: string;
+  reporter?: string;
+};
+
 export default function EditArticlePage() {
   const { id } = useParams();
   const router = useRouter();
@@ -16,10 +26,14 @@ export default function EditArticlePage() {
 
   useEffect(() => {
     const load = async () => {
-      const data = await getArticles();
-      const article = data.find((a: any) => a.id === id);
+      const data = await getArticles() as Article[];
 
-      if (!article) return;
+      const article = data.find((a) => a.id === id);
+
+      if (!article) {
+        setLoading(false);
+        return;
+      }
 
       setTitle(article.title || "");
       setCat(article.cat || "");
