@@ -8,7 +8,7 @@ const articles = [
     cat: "INFRASTRUCTURE",
     title: "Infrastructure Development at St. Peter's Engineering College",
     date: "June 2026",
-    image: "/articles/Infrastructure.jpg",
+    image: "/articles/infrastructure.jpg",
     reporter: "SPEC News Team"
   },
 
