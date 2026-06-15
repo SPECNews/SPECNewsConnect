@@ -96,8 +96,20 @@ export default function HomePage() {
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* 3. HERO LAYER ENTRY */}
-      <section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-36 pb-12 gap-12">
-        <motion.div initial="hidden" animate="visible" variants={revealVariant} className="space-y-8 max-w-2xl">
+      {/* Hero Video Background */}
+<div className="absolute inset-0 -z-10 overflow-hidden rounded-[40px]">
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="w-full h-full object-cover"
+  >
+    <source src="/videos/hero-video.mp4" type="video/mp4" />
+  </video>
+
+  <div className="absolute inset-0 bg-black/65" />
+</div> animate="visible" variants={revealVariant} className="space-y-8 max-w-2xl">
           <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/60 to-stone-900/40 border border-amber-500/30 px-4 py-1.5 rounded-full shadow-lg">
             <Trophy className="w-3.5 h-3.5 text-amber-500" />
             <span className="text-[10px] font-black tracking-widest uppercase text-amber-400">The Voice of St. Peter's</span>
