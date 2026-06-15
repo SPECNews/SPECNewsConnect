@@ -169,19 +169,19 @@ export default function HomePage() {
               role: "CLUB PRESIDENT", 
               name: "G. Vishwanadh", 
               imgSrc: "/team/president_full.jpg", 
-              bio: "Vishwanadh handles overarching club infrastructure management and guides production workflows while steering public connection strategy.",
+              bio: "Handles overarching club infrastructure management and guides production workflows while steering public connection strategy.",
             },
             { 
               role: "CLUB SECRETARY", 
               name: "B. Rishikesh", 
               imgSrc: "/team/secretary_full.jpg", 
-              bio: "Rishikesh commands multi-department alignment schedules, operational logistics, and formal documentation streams for event journalism.",
+              bio: "Commands multi-department alignment schedules, operational logistics, and formal documentation streams for event journalism.",
             },
             { 
               role: "CLUB ADMINISTRATOR", 
               name: "B. Sri Vardhan", 
               imgSrc: "/team/admin_full.jpg", 
-              bio: "Sri Vardhan leads complete portal system deployments, interface layout scaling, component optimizations, and core system health checks.",
+              bio: "Leads complete portal system deployments, interface layout scaling, component optimizations, and core system health checks.",
             }
           ].map((lead, idx) => (
             <motion.div 
