@@ -96,70 +96,91 @@ export default function HomePage() {
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* 3. HERO LAYER ENTRY */}
-      {/* Hero Video Background */}
-<div className="absolute inset-0 -z-10 overflow-hidden rounded-[40px]">
-  <video
-    autoPlay
-    muted
-    loop
-    playsInline
-    className="w-full h-full object-cover"
+<section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-36 pb-12 gap-12 overflow-hidden rounded-[40px]">
+
+  {/* Hero Video Background */}
+  <div className="absolute inset-0 -z-10 overflow-hidden rounded-[40px]">
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="w-full h-full object-cover"
+    >
+      <source src="/videos/hero-video.mp4" type="video/mp4" />
+    </video>
+
+    {/* Dark overlay for text readability */}
+    <div className="absolute inset-0 bg-black/65" />
+
+    {/* Bottom gradient fade */}
+    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#020001]" />
+  </div>
+
+  <motion.div
+    initial="hidden"
+    animate="visible"
+    variants={revealVariant}
+    className="space-y-8 max-w-2xl"
   >
-    <source src="/videos/hero-video.mp4" type="video/mp4" />
-  </video>
+    <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/60 to-stone-900/40 border border-amber-500/30 px-4 py-1.5 rounded-full shadow-lg">
+      <Trophy className="w-3.5 h-3.5 text-amber-500" />
+      <span className="text-[10px] font-black tracking-widest uppercase text-amber-400">
+        The Voice of St. Peter's
+      </span>
+    </div>
 
-  <div className="absolute inset-0 bg-black/65" />
-</div> animate="visible" variants={revealVariant} className="space-y-8 max-w-2xl">
-          <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-red-950/60 to-stone-900/40 border border-amber-500/30 px-4 py-1.5 rounded-full shadow-lg">
-            <Trophy className="w-3.5 h-3.5 text-amber-500" />
-            <span className="text-[10px] font-black tracking-widest uppercase text-amber-400">The Voice of St. Peter's</span>
-          </div>
-          
-          <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.08]">
-            CAPTURING MOMENTS. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-stone-200 to-stone-400">
-              CHRONICLING STORIES.
-            </span><br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-red-500 to-amber-200">
-              BROADCASTING CAMPUS LIFE.
-            </span>
-          </h1>
-          
-          {/* UPDATED COMPACT HIGH-IMPACT COPY */}
-          <p className="text-stone-400 text-sm sm:text-base normal-case leading-relaxed font-medium max-w-xl">
-            Welcome to SPEC NEWS Connect—the ultimate digital heartbeat of St. Peter's Engineering College. We don't just log events; we broadcast student energy, chronicle breakthrough journalism, and deliver high-fidelity campus culture straight to your screen.
-          </p>
+    <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-[1.08]">
+      CAPTURING MOMENTS. <br />
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-stone-200 to-stone-400">
+        CHRONICLING STORIES.
+      </span>
+      <br />
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-red-500 to-amber-200">
+        BROADCASTING CAMPUS LIFE.
+      </span>
+    </h1>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
-            <Link href="/articles" className="inline-flex items-center space-x-3 px-8 py-3.5 bg-gradient-to-r from-red-700 to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition shadow-[0_15px_30px_-5px_rgba(185,28,28,0.4)] group">
-              <span>EXPLORE ARTICLES</span>
-              <ArrowRight className="w-4 h-4 text-amber-300 transform transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link href="/gallery" className="inline-flex items-center space-x-2 px-7 py-3.5 bg-stone-950/80 border border-stone-800 hover:border-stone-700 text-stone-300 font-black text-xs uppercase tracking-widest rounded-xl transition">
-              <span>VIEW GALLERY</span>
-            </Link>
-          </div>
-        </motion.div>
+    <p className="text-stone-300 text-sm sm:text-base normal-case leading-relaxed font-medium max-w-xl">
+      Welcome to SPEC NEWS Connect—the ultimate digital heartbeat of St. Peter's Engineering College. We don't just log events; we broadcast student energy, chronicle breakthrough journalism, and deliver high-fidelity campus culture straight to your screen.
+    </p>
 
-        {/* HERO EMBLEM DESIGN - WITH MORPHING COLOR-SHIFTING GLOW AURA */}
-        <motion.div 
-          initial="hidden" animate="visible" variants={revealVariant}
-          whileHover={{ scale: 1.04 }}
-          className="relative group/emblem cursor-pointer flex-shrink-0"
-        >
-          {/* Ambient Glow shifting between Neon Cyan/Magenta and warm Crimson/Gold */}
-          <div className="absolute inset-[-40px] rounded-full animate-morphing-hero opacity-70 pointer-events-none transition-all duration-700" />
-          
-          {/* Solid Graphic Container Shield */}
-          <div className="w-64 h-64 sm:w-76 sm:h-76 rounded-full bg-[#050304] border-2 border-stone-800 flex items-center justify-center p-0 relative shadow-[0_0_60px_rgba(0,0,0,0.95)] overflow-hidden z-10">
-            <img 
-              src="/logo.png" 
-              alt="SPEC Central Emblem" 
-              className="w-full h-full object-cover scale-100 filter brightness-110 contrast-105 transition-transform duration-500 group-hover/emblem:scale-105" 
-            />
-          </div>
-        </motion.div>
-      </section>
+    <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
+      <Link
+        href="/articles"
+        className="inline-flex items-center space-x-3 px-8 py-3.5 bg-gradient-to-r from-red-700 to-amber-600 hover:from-red-600 hover:to-amber-500 text-white font-black text-xs uppercase tracking-widest rounded-xl transition shadow-[0_15px_30px_-5px_rgba(185,28,28,0.4)] group"
+      >
+        <span>EXPLORE ARTICLES</span>
+        <ArrowRight className="w-4 h-4 text-amber-300 transform transition-transform group-hover:translate-x-1" />
+      </Link>
+
+      <Link
+        href="/gallery"
+        className="inline-flex items-center space-x-2 px-7 py-3.5 bg-stone-950/80 border border-stone-800 hover:border-stone-700 text-stone-300 font-black text-xs uppercase tracking-widest rounded-xl transition"
+      >
+        <span>VIEW GALLERY</span>
+      </Link>
+    </div>
+  </motion.div>
+
+  <motion.div
+    initial="hidden"
+    animate="visible"
+    variants={revealVariant}
+    whileHover={{ scale: 1.04 }}
+    className="relative group/emblem cursor-pointer flex-shrink-0"
+  >
+    <div className="absolute inset-[-40px] rounded-full animate-morphing-hero opacity-70 pointer-events-none transition-all duration-700" />
+
+    <div className="w-64 h-64 sm:w-76 sm:h-76 rounded-full bg-[#050304] border-2 border-stone-800 flex items-center justify-center p-0 relative shadow-[0_0_60px_rgba(0,0,0,0.95)] overflow-hidden z-10">
+      <img
+        src="/logo.png"
+        alt="SPEC Central Emblem"
+        className="w-full h-full object-cover scale-100 filter brightness-110 contrast-105 transition-transform duration-500 group-hover/emblem:scale-105"
+      />
+    </div>
+  </motion.div>
+</section>
 
       {/* 4. CLEAN HIGH-FIDELITY PORTRAIT TEAM CARDS */}
       <section className="max-w-6xl mx-auto px-6 space-y-10 relative z-10 mt-16">
