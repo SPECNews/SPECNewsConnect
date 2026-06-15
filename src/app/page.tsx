@@ -96,16 +96,16 @@ export default function HomePage() {
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* 3. HERO LAYER ENTRY */}
-<section className="max-w-6xl mx-auto px-6 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-36 pb-12 gap-12 overflow-hidden rounded-[40px]">
+<section className="w-full px-6 lg:px-16 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between min-h-[100vh] relative z-10 pt-36 pb-12 gap-12 overflow-hidden">
 
   {/* Hero Video Background */}
-  <div className="absolute inset-0 -z-10 overflow-hidden rounded-[40px]">
+  <div className="absolute inset-0 -z-10">
     <video
       autoPlay
       muted
       loop
       playsInline
-      className="w-full h-full object-cover"
+      className="absolute inset-0 w-full h-full object-cover"
     >
       <source src="/videos/hero-video.mp4" type="video/mp4" />
     </video>
