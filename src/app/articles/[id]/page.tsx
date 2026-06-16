@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { getArticles } from '@/lib/articles/articleService';
+import { articles } from '@/data/articles';
 
 export default function ArticlePage() {
   const params = useParams();
@@ -14,7 +14,7 @@ export default function ArticlePage() {
   useEffect(() => {
     const load = async () => {
       try {
-        const data = await getArticles();
+        const data = articles;
 
         // IMPORTANT: Firestore IDs are strings
         const found = data.find((a: any) => a.id === id);

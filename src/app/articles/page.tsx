@@ -1,33 +1,11 @@
 ﻿'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/lib/articles/articleService';
+import { articles } from '@/data/articles';
 
 export default function ArticlesPage() {
   const [search, setSearch] = useState('');
-  const [articles, setArticles] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const load = async () => {
-      console.log('Loading articles...');
-
-      try {
-        const data = await getArticles();
-
-        console.log('Articles loaded:', data);
-
-        setArticles(data);
-      } catch (err) {
-        console.error('Error loading articles:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, []);
 
   const filtered = articles.filter(
     (article) =>
@@ -66,16 +44,9 @@ export default function ArticlesPage() {
         />
       </div>
 
-      {/* LOADING STATE */}
-      {loading && (
-        <p className="text-zinc-400">Loading articles...</p>
-      )}
-
       {/* EMPTY STATE */}
-      {!loading && filtered.length === 0 && (
-        <p className="text-zinc-400">
-          No articles found.
-        </p>
+      {filtered.length === 0 && (
+        <p className="text-zinc-400">No articles found.</p>
       )}
 
       {/* GRID */}
@@ -123,4 +94,3 @@ export default function ArticlesPage() {
     </div>
   );
 }
-
