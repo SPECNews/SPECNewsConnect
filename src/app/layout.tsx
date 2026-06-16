@@ -12,14 +12,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body className={`${inter.className} bg-[#020001] text-white`}>
         <Navbar />
-        <main className="pt-20">
+        {/* Dynamic top padding: Larger on mobile to prevent navbar overlapping content */}
+        <main className="pt-32 sm:pt-24 lg:pt-20">
           {children}
         </main>
       </body>

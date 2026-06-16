@@ -50,3 +50,72 @@
   backdrop-filter: blur(16px);
   border: 1px solid rgba(45, 43, 44, 0.7);
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #020001;
+    color: #fcf8f9;
+    font-family: system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* ─── OVERSIZED NAV LOGO SHIMMER GLOW ─── */
+@keyframes navLogoGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2), 0 0 40px rgba(185, 28, 28, 0.1);
+    border-color: rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.5), 0 0 70px rgba(239, 68, 68, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+.animate-nav-logo {
+  animation: navLogoGlow 4s infinite ease-in-out;
+}
+
+/* ─── DYNAMIC COLOR-SHIFTING HERO EMBLEM AURA ─── */
+@keyframes morphingHeroGlow {
+  0%, 100% {
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.6) 0%, rgba(217, 70, 239, 0.4) 40%, transparent 70%);
+    filter: blur(45px) brightness(1.1);
+  }
+  50% {
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.6) 0%, rgba(185, 28, 28, 0.5) 45%, transparent 70%);
+    filter: blur(60px) brightness(1.3);
+  }
+}
+.animate-morphing-hero {
+  animation: morphingHeroGlow 8s infinite ease-in-out;
+}
+
+/* Custom premium glassmorphism base cards */
+.team-glass-card {
+  background: linear-gradient(135deg, rgba(10, 8, 9, 0.75) 0%, rgba(4, 2, 3, 0.95) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(45, 43, 44, 0.7);
+}
+
+/* ─── MOBILE EMERGENCY RESPONSIVE FIXES FOR NAVBAR ─── */
+@media (max-width: 640px) {
+  /* Forces navbar flex items to wrap layout instead of breaking containers */
+  nav, .navbar, [class*="nav"] {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  
+  /* Restricts oversized brand overlays from spilling downward */
+  div[class*="spec-news"], div[class*="SPEC NEWS"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}
